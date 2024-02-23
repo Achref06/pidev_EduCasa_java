@@ -1,0 +1,14 @@
+services\FormulaireDAO.class
+entities\Infos.class
+controles\UpdateInfos.class
+controles\FormInfo.class
+controles\ShowForm.class
+entities\Form.class
+controles\DeleteInfos.class
+controles\AddForm.class
+controles\AddInfos.class
+controles\Home.class
+services\FormServices.class
+services\InfosServices.class
+controles\ShowInfos.class
+controles\InfosInfo.class
