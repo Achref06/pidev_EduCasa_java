@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controller.Deleterelamation">
+   <children>
+      <Label layoutX="68.0" layoutY="57.0" text="supprimer votre reclamation en tapant l'id correspondant">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idtextfeild" layoutX="188.0" layoutY="171.0" />
+      <Label layoutX="122.0" layoutY="176.0" text="id" />
+      <Button fx:id="supprimerreclamation" layoutX="450.0" layoutY="295.0" mnemonicParsing="false" text="supprimer" onAction="#handleSuppButton" />
+   </children>
+</AnchorPane>
