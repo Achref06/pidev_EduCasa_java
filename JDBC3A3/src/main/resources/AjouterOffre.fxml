@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AjouterOffre">
+   <children>
+      <Button layoutX="440.0" layoutY="318.0" mnemonicParsing="false" onAction="#ajouterOffre" text="Ajouter Offre" />
+      <TextField id="nomtextfield" fx:id="nomtextfield" layoutX="112.0" layoutY="92.0" />
+      <TextField id="statuttextfield" fx:id="statuttextfield" layoutX="112.0" layoutY="151.0" />
+      <TextField id="desctextfield" fx:id="desctextfield" layoutX="112.0" layoutY="211.0" />
+      <TextField id="prixtextfield" fx:id="prixtextfield" layoutX="112.0" layoutY="259.0" />
+      <Label layoutX="37.0" layoutY="96.0" text="Nom" />
+      <Label layoutX="35.0" layoutY="155.0" text="Statut" />
+      <Label layoutX="21.0" layoutY="215.0" text="Description" />
+      <Label layoutX="41.0" layoutY="263.0" text="Prix" />
+      <Label layoutX="38.0" layoutY="34.0" prefHeight="31.0" prefWidth="199.0" text="Ajouter un Offre">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
