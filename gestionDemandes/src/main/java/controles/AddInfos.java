@@ -6,7 +6,6 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import entities.Form;
 import entities.Infos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,13 +15,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import services.FormulaireDAO;
 import services.InfosServices;
-import utils.MyConnection;
 
 import static java.lang.Integer.parseInt;
 
-public class AddInfos {
+public class AddInfos{
 
     @FXML
     private ResourceBundle resources;
@@ -143,6 +140,7 @@ public class AddInfos {
         }
         return formulaireExiste;
     }
+
 
     public void setId(String id) {
         this.idFTextField.setText(id);

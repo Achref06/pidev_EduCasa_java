@@ -1,7 +1,9 @@
 package controles;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -14,7 +16,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.image.ImageView;
 import services.FormServices;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+
 
 public class AddForm {
 
@@ -25,13 +31,13 @@ public class AddForm {
     private URL location;
 
     @FXML
-    private DatePicker dateTextField;
+     DatePicker dateTextField;
 
     @FXML
     private Button donnees;
 
     @FXML
-    private ChoiceBox<String> statutTextField;
+     ChoiceBox<String> statutTextField;
 
     @FXML
     void ajouterFormulaire(ActionEvent event) {
@@ -66,7 +72,6 @@ public class AddForm {
             throw new RuntimeException(e);
         }
     }
-
     @FXML
     void initialize() {
         statutTextField.getItems().add("traité");

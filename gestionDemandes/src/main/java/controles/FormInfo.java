@@ -5,7 +5,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import entities.Infos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.stage.Stage;
-import services.FormulaireDAO;
 
 public class FormInfo {
 

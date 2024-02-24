@@ -5,34 +5,47 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.InfosInfo">
+<AnchorPane prefHeight="448.0" prefWidth="634.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.InfosInfo">
    <children>
-      <AnchorPane prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <Label layoutX="40.0" layoutY="116.0" text="prenom" />
-            <Label layoutX="50.0" layoutY="80.0" text="nom" />
-            <Label layoutX="47.0" layoutY="146.0" text="dateN" />
-            <Label layoutX="47.0" layoutY="182.0" text="email" />
-            <Label layoutX="39.0" layoutY="253.0" text="motivation" />
-            <Label layoutX="34.0" layoutY="219.0" text="experience" />
-            <Label layoutX="43.0" layoutY="289.0" text="matiere" />
-            <Label layoutX="41.0" layoutY="328.0" text="diplome" />
-            <TextField fx:id="nom" editable="false" layoutX="135.0" layoutY="76.0" />
-            <TextField fx:id="prenom" editable="false" layoutX="135.0" layoutY="112.0" />
-            <TextField fx:id="email" editable="false" layoutX="135.0" layoutY="178.0" />
-            <TextField fx:id="experience" editable="false" layoutX="135.0" layoutY="215.0" />
-            <TextField fx:id="motivation" editable="false" layoutX="135.0" layoutY="249.0" />
-            <TextField fx:id="diplome" editable="false" layoutX="135.0" layoutY="324.0" />
-            <ChoiceBox fx:id="matiere" layoutX="135.0" layoutY="285.0" prefWidth="150.0" />
-            <Button fx:id="update" layoutX="385.0" layoutY="346.0" mnemonicParsing="false" onAction="#modifierDonnees" text="update" />
-            <DatePicker fx:id="dateN" editable="false" layoutX="122.0" layoutY="142.0" />
-            <Button fx:id="delete" layoutX="487.0" layoutY="346.0" mnemonicParsing="false" onAction="#supprimerDonnees" text="delete" />
-            <TextField fx:id="idF" editable="false" layoutX="135.0" layoutY="40.0" />
-            <Label layoutX="50.0" layoutY="44.0" text="idF" />
-         </children>
-      </AnchorPane>
+      <Label layoutX="323.0" layoutY="80.0" text="prenom" textFill="WHITE" />
+      <Label layoutX="82.0" layoutY="80.0" text="nom" textFill="WHITE" />
+      <Label layoutX="22.0" layoutY="124.0" text="date de naissance" textFill="WHITE" />
+      <Label layoutX="79.0" layoutY="173.0" text="email" textFill="WHITE" />
+      <Label layoutX="65.0" layoutY="218.0" text="motivation" textFill="WHITE" />
+      <Label layoutX="315.0" layoutY="173.0" text="experience" textFill="WHITE" />
+      <Label layoutX="73.0" layoutY="263.0" text="matiere" textFill="WHITE" />
+      <Label layoutX="322.0" layoutY="263.0" text="diplome" textFill="WHITE" />
+      <TextField fx:id="nomTextField" layoutX="143.0" layoutY="76.0" />
+      <TextField fx:id="prenomTextField" layoutX="382.0" layoutY="76.0" />
+      <TextField fx:id="emailTextField" layoutX="143.0" layoutY="169.0" />
+      <TextField fx:id="experienceTextField" layoutX="382.0" layoutY="169.0" />
+      <TextField fx:id="motivationTextField" layoutX="143.0" layoutY="214.0" />
+      <TextField fx:id="diplomeTextField" layoutX="382.0" layoutY="259.0" />
+      <ChoiceBox fx:id="matiereTextField" layoutX="142.0" layoutY="259.0" prefWidth="150.0" />
+      <Button fx:id="update" layoutX="103.0" layoutY="320.0" mnemonicParsing="false" onAction="#modifierDonnees" style="-fx-background-color: #ffffff;" text="modifier vos donnees">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="dateNText" layoutX="130.0" layoutY="120.0" />
+      <Button fx:id="delete" layoutX="356.0" layoutY="320.0" mnemonicParsing="false" onAction="#supprimerDonnees" style="-fx-background-color: #ffffff;" text="supprimer vos donnees">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <TextField fx:id="idFTextField" layoutX="143.0" layoutY="40.0" />
+      <Label layoutX="86.0" layoutY="44.0" text="idF" textFill="WHITE" />
+      <ImageView fx:id="logo" fitHeight="64.0" fitWidth="67.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/C:/Users/user/IdeaProjects/gestionDemandes/src/main/java/images/419688462_290776913644562_7900684710288996849_n.jpg" />
+         </image>
+      </ImageView>
+      <TextField fx:id="idPTextField" layoutX="142.0" layoutY="14.0" />
+      <Label layoutX="94.0" layoutY="18.0" text="idP" textFill="WHITE" />
    </children>
 </AnchorPane>

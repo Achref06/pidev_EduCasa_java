@@ -3,17 +3,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.FormInfo">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.FormInfo">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <ChoiceBox fx:id="statut" layoutX="225.0" layoutY="188.0" prefWidth="150.0" />
-            <Button fx:id="donnees" layoutX="431.0" layoutY="321.0" mnemonicParsing="false" onAction="#ajouterDonnees" text="ajouter votre donnees" />
-            <DatePicker fx:id="date" editable="false" layoutX="213.0" layoutY="92.0" />
-         </children>
-      </AnchorPane>
+      <ChoiceBox fx:id="statut" layoutX="225.0" layoutY="192.0" prefWidth="150.0" />
+      <Button fx:id="donnees" layoutX="210.0" layoutY="243.0" mnemonicParsing="false" onAction="#ajouterDonnees" prefHeight="26.0" prefWidth="178.0" style="-fx-background-color: #ffffff;" text="ajouter votre donnees">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <DatePicker fx:id="date" editable="false" layoutX="211.0" layoutY="132.0" />
+      <ImageView fx:id="logo" fitHeight="73.0" fitWidth="125.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="file:/C:/Users/user/IdeaProjects/gestionDemandes/src/main/java/images/419688462_290776913644562_7900684710288996849_n.jpg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

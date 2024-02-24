@@ -9,8 +9,12 @@ import java.time.LocalDate;
 public class MainClass {
     public static void main(String[] args) {
          //    MyConnection mc = new MyConnection();
-        Form fo = new Form(53,LocalDate.parse("2024-02-22"),"non traité");
-        FormServices fss = new FormServices();
+        Form fo = new Form();
+        LocalDate date = LocalDate.of(2024, 2, 07);
+        String statut = "non traité";
+     //   int idFormulaire = Form.getIdFormulaire(date, statut);
+    //    System.out.println("ID formulaire pour date et statut : " + idFormulaire);
+     //   FormServices fss = new FormServices();
         //  fs.addEntity(f);
         //  fs.addEntity(f1);
         //  fs.updateEntity(f1);

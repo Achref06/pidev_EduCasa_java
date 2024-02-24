@@ -1,14 +1,13 @@
 package entities;
 
+import javafx.scene.image.ImageView;
+
 import java.time.LocalDate;
 
 public class Form {
     private int id;
     private LocalDate date;
     private String statut;
-
-    public Form(java.util.Date date, String selectedStatut) {
-    }
 
     public Form(int id, LocalDate date, String statut) {
         this.id = id;
@@ -24,6 +23,7 @@ public class Form {
     public Form() {
 
     }
+
 
     public int getId() {
         return id;
