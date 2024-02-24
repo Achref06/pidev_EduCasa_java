@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="415.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AfficherQuestion">
+   <children>
+      <ImageView fitHeight="536.0" fitWidth="515.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Downloads/Dark%20Pink%20And%20Purple%203D%20Illustrative%20Interactive%20Quiz%20Instagram%20Post.png" />
+         </image>
+      </ImageView>
+      <TextArea layoutX="136.0" layoutY="124.0" prefHeight="108.0" prefWidth="214.0" />
+      <Button layoutX="398.0" layoutY="460.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="102.0" text="Confirmer" />
+   </children>
+</AnchorPane>
