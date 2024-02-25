@@ -14,29 +14,33 @@
 <AnchorPane prefHeight="459.0" prefWidth="600.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.AddInfos">
    <children>
       <Label layoutX="54.0" layoutY="79.0" text="idF" textFill="WHITE" />
-      <Label layoutX="310.0" layoutY="114.0" text="prenom" textFill="WHITE" />
+      <AnchorPane layoutX="298.0" prefHeight="459.0" prefWidth="299.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label layoutX="7.0" layoutY="111.0" text="prenom" />
+            <Label layoutY="201.0" text="experience" />
+            <Label layoutX="7.0" layoutY="300.0" text="diplome" />
+            <TextField fx:id="prenomTextField" layoutX="70.0" layoutY="107.0" />
+            <TextField fx:id="experienceTextField" layoutX="70.0" layoutY="197.0" />
+            <TextField fx:id="diplomeTextField" layoutX="70.0" layoutY="296.0" />
+         </children>
+      </AnchorPane>
       <Label layoutX="51.0" layoutY="114.0" text="nom" textFill="#fff6f6" />
       <Label layoutX="17.0" layoutY="158.0" text="date de naissance" textFill="WHITE" />
       <Label layoutX="50.0" layoutY="203.0" text="email" textFill="WHITE" />
       <Label layoutX="35.0" layoutY="253.0" text="motivation" textFill="WHITE" />
-      <Label layoutX="302.0" layoutY="203.0" text="experience" textFill="WHITE" />
       <Label layoutX="44.0" layoutY="301.0" text="matiere" textFill="WHITE" />
-      <Label layoutX="309.0" layoutY="301.0" text="diplome" textFill="WHITE" />
       <TextField fx:id="idFTextField" layoutX="123.0" layoutY="75.0" />
       <TextField fx:id="nomTextField" layoutX="123.0" layoutY="110.0" />
-      <TextField fx:id="prenomTextField" layoutX="372.0" layoutY="110.0" />
       <TextField fx:id="emailTextField" layoutX="123.0" layoutY="199.0" />
-      <TextField fx:id="experienceTextField" layoutX="372.0" layoutY="199.0" />
       <TextField fx:id="motivationTextField" layoutX="123.0" layoutY="249.0" />
-      <TextField fx:id="diplomeTextField" layoutX="366.0" layoutY="297.0" />
       <ChoiceBox fx:id="matiereTextField" layoutX="122.0" layoutY="297.0" prefWidth="150.0" />
-      <Button layoutX="197.0" layoutY="350.0" mnemonicParsing="false" onAction="#ajouterDonnees" prefHeight="26.0" prefWidth="202.0" style="-fx-background-color: #ffffff;" text="envoyer">
+      <Button layoutX="197.0" layoutY="350.0" mnemonicParsing="false" onAction="#ajouterDonnees" prefHeight="26.0" prefWidth="202.0" text="envoyer">
          <font>
             <Font size="21.0" />
          </font>
       </Button>
       <DatePicker fx:id="dateNText" layoutX="123.0" layoutY="154.0" />
-      <Text fill="WHITE" layoutX="123.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez saisir votre donnees">
+      <Text layoutX="123.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Veuillez saisir votre donnees">
          <font>
             <Font size="28.0" />
          </font>

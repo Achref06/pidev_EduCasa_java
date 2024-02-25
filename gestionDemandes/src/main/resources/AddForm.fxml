@@ -12,16 +12,15 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.AddForm">
    <children>
-      <Label layoutX="144.0" layoutY="155.0" text="Date" textFill="WHITE" />
-      <Label layoutX="145.0" layoutY="205.0" text="Statut" textFill="WHITE" />
-      <ChoiceBox fx:id="statutTextField" layoutX="203.0" layoutY="201.0" prefWidth="150.0" />
-      <Button fx:id="donnees" alignment="CENTER" layoutX="157.0" layoutY="246.0" mnemonicParsing="false" onAction="#ajouterFormulaire" prefHeight="26.0" prefWidth="242.0" style="-fx-background-color: #ffffff;" text="ajouter formulaire" textAlignment="CENTER" AnchorPane.bottomAnchor="116.39999999999998" AnchorPane.leftAnchor="157.0" AnchorPane.rightAnchor="200.60000000000002" AnchorPane.topAnchor="246.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <DatePicker fx:id="dateTextField" layoutX="190.0" layoutY="151.0" />
-      <Text fill="WHITE" layoutX="67.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remplir ces champs pour votre demande" textAlignment="CENTER">
+      <Label layoutX="234.0" layoutY="152.0" text="Date" textFill="WHITE" />
+      <Label layoutX="231.0" layoutY="204.0" text="Statut" textFill="WHITE" />
+      <AnchorPane layoutX="285.0" layoutY="-1.0" prefHeight="410.0" prefWidth="316.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <ChoiceBox fx:id="statutTextField" layoutX="14.0" layoutY="205.0" prefWidth="150.0" />
+            <DatePicker fx:id="dateTextField" layoutX="14.0" layoutY="150.0" />
+         </children>
+      </AnchorPane>
+      <Text layoutX="75.0" layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remplir ces champs pour votre demande" textAlignment="CENTER">
          <font>
             <Font name="Cambria" size="24.0" />
          </font>
@@ -31,5 +30,10 @@
             <Image url="file:/C:/Users/user/IdeaProjects/gestionDemandes/src/main/java/images/419688462_290776913644562_7900684710288996849_n.jpg" />
          </image>
       </ImageView>
+      <Button fx:id="donnees" alignment="CENTER" layoutX="231.0" layoutY="246.0" mnemonicParsing="false" onAction="#ajouterFormulaire" prefHeight="26.0" prefWidth="242.0" text="ajouter formulaire" textAlignment="CENTER">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
