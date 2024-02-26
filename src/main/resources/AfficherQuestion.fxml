@@ -9,16 +9,16 @@
 
 <AnchorPane prefHeight="415.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AfficherQuestion">
    <children>
-      <ImageView fitHeight="512.0" fitWidth="512.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="505.0" fitWidth="508.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@Dark%20Pink%20And%20Purple%203D%20Illustrative%20Interactive%20Quiz%20Instagram%20Post.png" />
+            <Image url="@AFFICHERQUESTION.png" />
          </image>
       </ImageView>
       <TextArea fx:id="quest" layoutX="136.0" layoutY="124.0" prefHeight="108.0" prefWidth="214.0" />
       <Button fx:id="confirmer" layoutX="398.0" layoutY="460.0" mnemonicParsing="false" onAction="#confirmer" prefHeight="31.0" prefWidth="102.0" text="Confirmer" />
-      <TextField fx:id="rep1" layoutX="158.0" layoutY="251.0" prefHeight="26.0" prefWidth="192.0" />
-      <TextField fx:id="rep2" layoutX="158.0" layoutY="299.0" prefHeight="26.0" prefWidth="192.0" />
-      <TextField fx:id="rep3" layoutX="158.0" layoutY="351.0" prefHeight="26.0" prefWidth="192.0" />
-      <TextField fx:id="rep4" layoutX="158.0" layoutY="400.0" prefHeight="26.0" prefWidth="192.0" />
+      <TextField fx:id="rep1" layoutX="156.0" layoutY="245.0" prefHeight="26.0" prefWidth="192.0" />
+      <TextField fx:id="rep2" layoutX="157.0" layoutY="293.0" prefHeight="26.0" prefWidth="192.0" />
+      <TextField fx:id="rep3" layoutX="157.0" layoutY="343.0" prefHeight="26.0" prefWidth="192.0" />
+      <TextField fx:id="rep4" layoutX="157.0" layoutY="392.0" prefHeight="26.0" prefWidth="192.0" />
    </children>
 </AnchorPane>
