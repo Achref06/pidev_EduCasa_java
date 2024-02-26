@@ -1,0 +1,4 @@
+#nomText, #prenomText, #emailText, #roleText, #specialiteText, #niveauText, #mdpText {
+    -fx-font-size: 18px;
+    -fx-font-family: "Arial";
+}

@@ -1,0 +1,19 @@
+.table-view {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.table-row-cell {
+    -fx-background-color: dodgerblue;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+
+.table-column {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
