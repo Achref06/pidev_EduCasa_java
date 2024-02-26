@@ -2,6 +2,7 @@ package tests;
 
 import entities.Form;
 import services.FormServices;
+import services.InfosServices;
 
 import java.time.LocalDate;
 
@@ -12,6 +13,9 @@ public class MainClass {
         Form fo = new Form();
         LocalDate date = LocalDate.of(2024, 2, 07);
         String statut = "non traité";
+        InfosServices infosServices = new InfosServices();
+        int id = infosServices.getLastInsertedId();
+        System.out.println(id);
      //   int idFormulaire = Form.getIdFormulaire(date, statut);
     //    System.out.println("ID formulaire pour date et statut : " + idFormulaire);
      //   FormServices fss = new FormServices();

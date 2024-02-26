@@ -1,6 +1,5 @@
 package entities;
 
-import java.sql.*;
 import java.time.LocalDate;
 
 public class Infos {

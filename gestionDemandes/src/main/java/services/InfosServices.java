@@ -84,7 +84,7 @@ public class InfosServices implements IServices<Infos> {
         try {
             Statement st = MyConnection.getInstance().getCnx().createStatement();
             ResultSet rs = st.executeQuery(requete);
-            while (rs.next()){
+            while (rs.next()) {
                 Infos i = new Infos();
                 i.setIdP(rs.getInt(1));
                 i.setIdF(rs.getInt(2));
@@ -104,5 +104,41 @@ public class InfosServices implements IServices<Infos> {
         return dataI;
     }
 
+    public int getLastInsertedId() {
+        int lastId = -1; // Default value if no ID is found or an error occurs
 
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "")) {
+            String sql = "SELECT MAX(id) AS last_id FROM formulaire";
+            try (PreparedStatement statement = connection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    lastId = resultSet.getInt("last_id");
+                }
+            }
+        } catch (SQLException e) {
+            // Log or handle the exception
+            e.printStackTrace(); // Handle exception properly in your application
+        }
+
+        return lastId;
+    }
+
+    public int getNextId() {
+        int nextId = -1; // Default value if no next ID is found or an error occurs
+
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "")) {
+            String sql = "SELECT MAX(idP) + 1 AS next_id FROM donnees";
+            try (PreparedStatement statement = connection.prepareStatement(sql);
+                 ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    nextId = resultSet.getInt("next_id");
+                }
+            }
+        } catch (SQLException e) {
+            // Log or handle the exception
+            e.printStackTrace(); // Handle exception properly in your application
+        }
+
+        return nextId;
+    }
 }

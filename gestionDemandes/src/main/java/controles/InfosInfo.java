@@ -184,6 +184,10 @@ public class InfosInfo {
         this.idFTextField.setText(idF);
     }
 
+    public void setIdP(String idP) {
+        this.idPTextField.setText(idP);
+    }
+
     @FXML
     void initialize() {
         matiereTextField.getItems().addAll("java","uml","math","français","anglais");

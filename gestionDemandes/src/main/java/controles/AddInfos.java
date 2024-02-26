@@ -15,11 +15,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import services.FormServices;
 import services.InfosServices;
 
 import static java.lang.Integer.parseInt;
 
-public class AddInfos{
+public class AddInfos {
 
     @FXML
     private ResourceBundle resources;
@@ -55,15 +56,18 @@ public class AddInfos{
     private TextField idFTextField;
 
     @FXML
+    private TextField idPTextField;
+
+    @FXML
     void ajouterDonnees(ActionEvent event) {
-        LocalDate selectedDate = dateNText.getValue();
+        LocalDate Date = dateNText.getValue();
 
         // Retrieve the selected statut from the ChoiceBox
         String selectedMatiere = matiereTextField.getValue();
 
 
         // Perform validation to ensure that both date and statut are selected
-        if (selectedDate == null || selectedMatiere == null) {
+        if (Date == null || selectedMatiere == null) {
             // Show an error message if either date or statut is not selected
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Veuillez sélectionner une date et une matiere.");
@@ -90,9 +94,13 @@ public class AddInfos{
             alert.setContentText("Un formulaire avec e-mail existe déjà.");
             alert.show();
         } else {
-            int idF = parseInt(idFTextField.getText());
-            Infos infos = new Infos(idF,nomTextField.getText(), prenomTextField.getText(), selectedDate, emailTextField.getText(), experienceTextField.getText(),motivationTextField.getText(),selectedMatiere, diplomeTextField.getText());
+          //  int idF = parseInt(idFTextField.getText());
             InfosServices infosServices = new InfosServices();
+            int idF = infosServices.getLastInsertedId();
+            idFTextField.setText(String.valueOf(idF));
+            int idP = infosServices.getNextId();
+            idPTextField.setText(String.valueOf(idP));
+            Infos infos = new Infos(idP,idF,nomTextField.getText(), prenomTextField.getText(), Date, emailTextField.getText(), experienceTextField.getText(),motivationTextField.getText(),selectedMatiere, diplomeTextField.getText());
             infosServices.addEntity(infos);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Le formulaire a été ajouté avec succès.");
@@ -102,6 +110,7 @@ public class AddInfos{
         try {
             Parent root = loader.load();
             InfosInfo infosInfo = loader.getController();
+            infosInfo.setIdP(idPTextField.getText());
             infosInfo.setIdF(idFTextField.getText());
             infosInfo.setNom(nomTextField.getText());
             infosInfo.setPrenom(prenomTextField.getText());

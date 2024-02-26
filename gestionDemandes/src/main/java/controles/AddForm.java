@@ -43,7 +43,6 @@ public class AddForm {
     void ajouterFormulaire(ActionEvent event) {
         LocalDate selectedDate = dateTextField.getValue();
 
-
         // Retrieve the selected statut from the ChoiceBox
         String selectedStatut = statutTextField.getValue();
 
