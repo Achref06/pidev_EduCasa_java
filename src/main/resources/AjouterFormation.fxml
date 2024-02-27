@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="502.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AjouterFormation">
+   <children>
+      <Label layoutX="357.0" layoutY="154.0" text="Nom Formation:" />
+      <Label layoutX="354.0" layoutY="204.0" text="Durée Formation:" />
+      <Label layoutX="352.0" layoutY="248.0" text="Niveau Formation:" />
+      <TextField fx:id="NomTextField" layoutX="483.0" layoutY="150.0" />
+      <TextField fx:id="DureeTextField" layoutX="483.0" layoutY="200.0" />
+      <TextField fx:id="NiveauTextField" layoutX="483.0" layoutY="244.0" />
+      <Button layoutX="764.0" layoutY="445.0" mnemonicParsing="false" onAction="#ajouterFormation" text="Ajouter Formation" />
+      <Pane id="sidepanel" prefHeight="502.0" prefWidth="292.0" style="-fx-background-color: #00008B;">
+         <children>
+            <Pane layoutY="114.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="113.0" text="DashBoard" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutY="163.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="123.0" text="List Formations" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="56.0" layoutY="32.0" prefHeight="35.0" prefWidth="152.0" text="Edu-Casa" textFill="WHITE">
+               <font>
+                  <Font name="System Italic" size="36.0" />
+               </font>
+            </Label>
+            <Pane layoutY="212.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="123.0" text="List Cours" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutY="310.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="123.0" text="Informations" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutY="359.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="123.0" text="Paramétres" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutY="261.0" prefHeight="49.0" prefWidth="292.0" style="-fx-background-color: #1434A4;">
+               <children>
+                  <Label layoutX="65.0" layoutY="11.0" prefHeight="27.0" prefWidth="123.0" text="List Categories" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane layoutX="292.0" layoutY="25.0" prefHeight="90.0" prefWidth="608.0" style="-fx-background-color: #00008B;">
+         <children>
+            <Text fill="#fff7f7" layoutX="125.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter Une formation">
+               <font>
+                  <Font name="System Italic" size="36.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Label layoutX="354.0" layoutY="304.0" text="Nombre de jours:" />
+      <TextField fx:id="nbjoursTextField" layoutX="467.0" layoutY="300.0" />
+   </children>
+</AnchorPane>
