@@ -1,5 +1,6 @@
 package controles;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -13,11 +14,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import services.InfosServices;
 
@@ -99,9 +99,27 @@ public class ShowInfos {
         motivation.setCellValueFactory(new PropertyValueFactory<>("motivation"));
         matiere.setCellValueFactory(new PropertyValueFactory<>("matiere"));
         diplome.setCellValueFactory(new PropertyValueFactory<>("diplome"));
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("les donnees sont affichés");
-        alert.show();
+        diplome.setCellFactory(column -> {
+            return new TableCell<Infos, String>() {
+                final ImageView imageView = new ImageView();
+
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setGraphic(null);
+                    } else {
+                        // Load the image and set it to the ImageView
+                        Image image = new Image(new File(item).toURI().toString());
+                        imageView.setImage(image);
+                        imageView.setFitWidth(100); // Set width as needed
+                        imageView.setFitHeight(100); // Set height as needed
+                        setGraphic(imageView);
+                    }
+                }
+            };
+        });
     }
 
 }

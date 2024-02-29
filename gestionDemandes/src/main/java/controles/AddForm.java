@@ -31,13 +31,13 @@ public class AddForm {
     private URL location;
 
     @FXML
-     DatePicker dateTextField;
+    private DatePicker dateTextField;
 
     @FXML
     private Button donnees;
 
     @FXML
-     ChoiceBox<String> statutTextField;
+    private ChoiceBox<String> statutTextField;
 
     @FXML
     void ajouterFormulaire(ActionEvent event) {
@@ -54,8 +54,8 @@ public class AddForm {
             alert.show();
             return;
         }
-        Form form = new Form(selectedDate,selectedStatut);
         FormServices formServices = new FormServices();
+        Form form = new Form(selectedDate,selectedStatut);
         formServices.addEntity(form);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Le formulaire a été ajouté avec succès.");

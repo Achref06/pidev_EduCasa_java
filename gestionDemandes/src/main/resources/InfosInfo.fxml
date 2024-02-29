@@ -12,7 +12,7 @@
 
 <AnchorPane prefHeight="448.0" prefWidth="634.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.InfosInfo">
    <children>
-      <AnchorPane layoutX="318.0" prefHeight="449.0" prefWidth="318.0" style="-fx-background-color: #ffffff;">
+      <AnchorPane layoutX="305.0" layoutY="-7.0" prefHeight="468.0" prefWidth="330.0" style="-fx-background-color: #ffffff;">
          <children>
             <Label layoutX="8.0" layoutY="143.0" text="prenom" />
             <Label layoutX="8.0" layoutY="241.0" text="experience" />
@@ -25,7 +25,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <TextField fx:id="idFTextField" editable="false" layoutX="73.0" layoutY="84.0" />
+            <TextField fx:id="idFTextField" layoutX="73.0" layoutY="84.0" />
             <Label layoutX="21.0" layoutY="88.0" text="idF" />
          </children>
       </AnchorPane>
@@ -44,12 +44,12 @@
          </font>
       </Button>
       <DatePicker fx:id="dateNText" layoutX="117.0" layoutY="186.0" />
-      <ImageView fx:id="logo" fitHeight="77.0" fitWidth="82.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="idPTextField" layoutX="130.0" layoutY="86.0" />
+      <Label layoutX="94.0" layoutY="90.0" text="idP" textFill="WHITE" />
+      <ImageView fitHeight="71.0" fitWidth="80.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:/C:/Users/user/IdeaProjects/gestionDemandes/src/main/java/images/419688462_290776913644562_7900684710288996849_n.jpg" />
+            <Image url="@../java/images/logo.jpg" />
          </image>
       </ImageView>
-      <TextField fx:id="idPTextField" editable="false" layoutX="137.0" layoutY="86.0" />
-      <Label layoutX="94.0" layoutY="90.0" text="idP" textFill="WHITE" />
    </children>
 </AnchorPane>

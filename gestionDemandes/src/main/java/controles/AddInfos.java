@@ -1,5 +1,6 @@
 package controles;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
@@ -11,10 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import services.FormServices;
 import services.InfosServices;
 
@@ -94,7 +93,6 @@ public class AddInfos {
             alert.setContentText("Un formulaire avec e-mail existe déjà.");
             alert.show();
         } else {
-          //  int idF = parseInt(idFTextField.getText());
             InfosServices infosServices = new InfosServices();
             int idF = infosServices.getLastInsertedId();
             idFTextField.setText(String.valueOf(idF));
@@ -105,24 +103,24 @@ public class AddInfos {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("Le formulaire a été ajouté avec succès.");
             alert.show();
-        }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/InfosInfo.fxml"));
-        try {
-            Parent root = loader.load();
-            InfosInfo infosInfo = loader.getController();
-            infosInfo.setIdP(idPTextField.getText());
-            infosInfo.setIdF(idFTextField.getText());
-            infosInfo.setNom(nomTextField.getText());
-            infosInfo.setPrenom(prenomTextField.getText());
-            infosInfo.setDateN(String.valueOf(dateNText.getValue()));
-            infosInfo.setEmail(emailTextField.getText());
-            infosInfo.setExperience(experienceTextField.getText());
-            infosInfo.setMotivation(motivationTextField.getText());
-            infosInfo.setMatiere(matiereTextField.getValue());
-            infosInfo.setDiplome(diplomeTextField.getText());
-            nomTextField.getScene().setRoot(root);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/InfosInfo.fxml"));
+            try {
+                Parent root = loader.load();
+                InfosInfo infosInfo = loader.getController();
+                infosInfo.setIdP(idPTextField.getText());
+                infosInfo.setIdF(idFTextField.getText());
+                infosInfo.setNom(nomTextField.getText());
+                infosInfo.setPrenom(prenomTextField.getText());
+                infosInfo.setDateN(String.valueOf(dateNText.getValue()));
+                infosInfo.setEmail(emailTextField.getText());
+                infosInfo.setExperience(experienceTextField.getText());
+                infosInfo.setMotivation(motivationTextField.getText());
+                infosInfo.setMatiere(matiereTextField.getValue());
+                infosInfo.setDiplome(diplomeTextField.getText());
+                nomTextField.getScene().setRoot(root);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     private boolean isValidEmail(String email) {
@@ -150,10 +148,42 @@ public class AddInfos {
         return formulaireExiste;
     }
 
+    @FXML
+    void uploadImage(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+
+        // Set extension filters
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+                new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        // Show open file dialog
+        File selectedFile = fileChooser.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            // Check if the selected file is an image file
+            String fileName = selectedFile.getName().toLowerCase();
+            if (fileName.endsWith(".png") || fileName.endsWith(".jpg") || fileName.endsWith(".gif")) {
+                // Set the file path to the text field
+                diplomeTextField.setText(selectedFile.getAbsolutePath());
+                // You can also load the image and display it in an ImageView if needed
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Veuillez sélectionner un fichier image (PNG, JPG, GIF).");
+                alert.show();
+            }
+        } else {
+            System.out.println("No file selected");
+        }
+    }
+
+
 
     public void setId(String id) {
         this.idFTextField.setText(id);
     }
+
     @FXML
     void initialize() {
         matiereTextField.getItems().addAll("java","uml","math","français","anglais");

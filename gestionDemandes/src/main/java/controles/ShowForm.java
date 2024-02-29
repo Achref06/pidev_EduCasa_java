@@ -52,6 +52,9 @@ public class ShowForm {
     private TextField statutTextField;
 
     @FXML
+    private Button form;
+
+    @FXML
     void afficherDonnees(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ShowInfos.fxml"));
@@ -139,6 +142,30 @@ public class ShowForm {
             alert.setContentText("Veuillez sélectionner un formulaire à supprimer.");
             alert.show();
         }
+    }
+
+    @FXML
+    void search(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/SearchForm.fxml"));
+            Parent nextInterfaceParent = loader.load();
+            Scene nextInterfaceScene = new Scene(nextInterfaceParent);
+
+            Stage stage = (Stage) form.getScene().getWindow();
+
+            stage.setScene(nextInterfaceScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void trierFormulaire(ActionEvent event) {
+        final FormServices fs = new FormServices();
+        List<Form> forms = fs.getAllDataSortedByStatut();
+        ObservableList<Form> observableList = FXCollections.observableList(forms);
+        showForm.setItems(observableList);
     }
 
     public void setDate(String date) { this.date.setText(date); }

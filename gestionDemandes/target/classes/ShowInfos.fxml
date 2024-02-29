@@ -4,14 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="462.0" prefWidth="769.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.ShowInfos">
    <children>
-      <TableView fx:id="showDonnees" layoutX="8.0" layoutY="85.0" prefHeight="200.0" prefWidth="753.0">
+      <TableView fx:id="showDonnees" layoutX="7.0" layoutY="91.0" prefHeight="200.0" prefWidth="754.0">
          <columns>
             <TableColumn fx:id="idP" editable="false" prefWidth="75.0" text="idP" />
             <TableColumn fx:id="idF" prefWidth="75.0" text="idF" />
@@ -35,10 +33,5 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <ImageView fx:id="logo" fitHeight="73.0" fitWidth="125.0" layoutX="21.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:/C:/Users/user/IdeaProjects/gestionDemandes/src/main/java/images/419688462_290776913644562_7900684710288996849_n.jpg" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

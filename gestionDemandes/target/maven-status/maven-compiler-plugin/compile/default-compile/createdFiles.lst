@@ -1,3 +1,4 @@
+controles\SearchForm.class
 entities\Infos.class
 controles\FormInfo.class
 controles\ShowForm.class
@@ -5,6 +6,7 @@ entities\Form.class
 controles\AddForm.class
 controles\AddInfos.class
 controles\Home.class
+controles\ShowInfos$1.class
 services\FormServices.class
 services\InfosServices.class
 controles\ShowInfos.class

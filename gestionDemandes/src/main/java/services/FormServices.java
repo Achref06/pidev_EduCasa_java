@@ -83,5 +83,82 @@ public class FormServices implements IServices<Form>{
         }
         return data;
     }
+    public List<Form> searchForm(String searchText) {
+        List<Form> searchResults = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "");
+            String query = "SELECT * FROM formulaire WHERE id LIKE ? OR date LIKE ? OR statut LIKE ?";
+            statement = connection.prepareStatement(query);
+            String searchPattern = "%" + searchText + "%";
+            statement.setString(1, searchPattern);
+            statement.setString(2, searchPattern);
+            statement.setString(3, searchPattern);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String dateStr = resultSet.getString("date");
+                String statut = resultSet.getString("statut");
+                // Create a Form object and add it to the search results list
+                LocalDate date = LocalDate.parse(dateStr);
+                Form form = new Form(id, date, statut);
+                searchResults.add(form);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return searchResults;
+    }
+
+    public List<Form> getAllDataSortedByStatut() {
+        List<Form> forms = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "");
+            String query = "SELECT * FROM formulaire ORDER BY statut";
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String dateForm = resultSet.getString("date");
+                String statut = resultSet.getString("statut");
+                // Create a Form object and add it to the list
+                LocalDate date = LocalDate.parse(dateForm);
+                Form form = new Form(id, date, statut);
+                forms.add(form);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return forms;
+    }
 
 }
