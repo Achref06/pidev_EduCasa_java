@@ -141,4 +141,123 @@ public class InfosServices implements IServices<Infos> {
 
         return nextId;
     }
+
+    public List<Infos> searchInfos(String searchText) {
+        List<Infos> searchResults = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "");
+            String query = "SELECT * FROM donnees WHERE idP LIKE ? OR idF LIKE ? OR nom LIKE ? OR prenom LIKE ? OR email LIKE ? OR matiere LIKE ?";
+            statement = connection.prepareStatement(query);
+            String searchPattern = "%" + searchText + "%";
+            statement.setString(1, searchPattern);
+            statement.setString(2, searchPattern);
+            statement.setString(3, searchPattern);
+            statement.setString(4, searchPattern);
+            statement.setString(5, searchPattern);
+            statement.setString(6, searchPattern);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int idP = resultSet.getInt("idP");
+                int idF = resultSet.getInt("idF");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String email = resultSet.getString("email");
+                String matiere = resultSet.getString("matiere");
+                Infos infos = new Infos(idP, idF, nom, prenom, email, matiere);
+                searchResults.add(infos);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return searchResults;
+    }
+
+    public List<Infos> getAllDataSortedByMatiere() {
+        List<Infos> infos = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "");
+            String query = "SELECT * FROM donnees ORDER BY matiere";
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int idP = resultSet.getInt("idP");
+                int idF = resultSet.getInt("idF");
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String email = resultSet.getString("email");
+                String matiere = resultSet.getString("matiere");
+                Infos info = new Infos(idP, idF, nom, prenom, email, matiere);
+                infos.add(info);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return infos;
+    }
+
+    public List<Infos> getDataProf() {
+        List<Infos> dataProf = new ArrayList<>();
+        String requete = "SELECT nom , prenom , matiere FROM donnees";
+        try {
+            Statement st = MyConnection.getInstance().getCnx().createStatement();
+            ResultSet rs = st.executeQuery(requete);
+            while (rs.next()) {
+                Infos i = new Infos();
+                i.setNom(rs.getString("nom"));
+                i.setPrenom(rs.getString("prenom"));
+                i.setMatiere(rs.getString("matiere"));
+                dataProf.add(i);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dataProf;
+    }
+
+    public static double calculerRating(double qualite, double interaction, double preparation, double evaluations) {
+        final double QUALITE_ENSEIGNEMENT = 0.4;
+        final double INTERACTION_ETUDIANTS = 0.3;
+        final double PREPARATION_COURS = 0.2;
+        final double EVALUATIONS_ETUDIANTS = 0.1;
+        // Calculer la somme pondérée des critères
+        double qualitePonderee = qualite * QUALITE_ENSEIGNEMENT;
+        double interactionPonderee = interaction * INTERACTION_ETUDIANTS;
+        double preparationPonderee = preparation * PREPARATION_COURS;
+        double evaluationsPonderee = evaluations * EVALUATIONS_ETUDIANTS;
+
+        // Calculer le rating global
+        double ratingGlobal = qualitePonderee + interactionPonderee + preparationPonderee + evaluationsPonderee;
+
+        return ratingGlobal;
+    }
 }

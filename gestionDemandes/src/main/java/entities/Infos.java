@@ -56,6 +56,15 @@ public class Infos {
         this.idP=idP;
     }
 
+    public Infos(int idP, int idF, String nom, String prenom, String email, String matiere) {
+        this.idP = idP;
+        this.idF = idF;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.matiere = matiere;
+    }
+
     public Form getForm() {
         return form;
     }
