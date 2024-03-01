@@ -35,7 +35,7 @@ public class Profile implements Initializable {
         gridPane.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
     }
 
-    private void populateUserInfo() {
+    public void populateUserInfo() {
         User user = userServices.getUserByEmail(UserConnected);
         if (user != null) {
             gridPane.addRow(0, new Text("Nom:"), new Text(user.getNom()));

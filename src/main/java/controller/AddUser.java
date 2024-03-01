@@ -72,9 +72,17 @@ public class AddUser {
 
     @FXML
     void AjouterUser(ActionEvent event) {
-        User user = new User(nomTextField.getText(), prenomTextField.getText(), mdpTextField.getText(),
-                emailTextField.getText(), roleTextField.getValue().toString(), specialiteTextField.getText(),
-                niveauTextField.getText());
+
+        if(nomTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || prenomTextField.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Veuillez remplir tous les champs");
+            alert.show();
+        }
+        else {
+            User user = new User(nomTextField.getText(), prenomTextField.getText(), mdpTextField.getText(),
+                    emailTextField.getText(), roleTextField.getValue().toString(), specialiteTextField.getText(),
+                    niveauTextField.getText());
 
             if (mdpTextField.getText().equals(confirmTextField.getText())) {
                 confirmPasswordLabel.setText("");
@@ -92,6 +100,9 @@ public class AddUser {
             } else {
                 confirmPasswordLabel.setText("Password does not match!");
             }
+        }
+
+
 
     }
 

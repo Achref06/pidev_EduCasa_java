@@ -2,6 +2,9 @@ package services;
 
 import entities.User;
 import interfaces.IServices;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import utils.MyConnection;
 
 import java.sql.PreparedStatement;
@@ -18,7 +21,7 @@ public class UserServices implements IServices<User> {
         String requete = "INSERT INTO user (nom,prenom,mdp,email,role,specialite,niveau) VALUES ( ?,?,?,?,?,?,? )";
         try {
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
-            pst.setString(1,user.getNom());
+            pst.setString(1, user.getNom());
             pst.setString(2, user.getPrenom());
             pst.setString(3, user.getMdp());
             pst.setString(4, user.getEmail());
@@ -108,4 +111,18 @@ public class UserServices implements IServices<User> {
         return user;
     }
 
+
+    public void confirmer() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmation");
+        confirmationAlert.setHeaderText("Modification du quiz");
+        confirmationAlert.setContentText("Voulez-vous vraiment modifier ce quiz ?");
+
+        ButtonType ouiButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+        ButtonType nonButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirmationAlert.getButtonTypes().setAll(ouiButton, nonButton);
+
     }
+
+}

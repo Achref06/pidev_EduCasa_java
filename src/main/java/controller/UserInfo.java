@@ -21,6 +21,7 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class UserInfo {
@@ -79,14 +80,29 @@ public class UserInfo {
 
         deleteColumn.setCellFactory(ButtonTableCell.forTableColumn("Delete", user -> {
             // Handle delete button click
-            System.out.println("Delete button clicked for user: " + user);
-            tableUsers.getItems().remove(user); // Remove the user from the TableView
-            UserServices userServices = new UserServices();
-            userServices.deleteEntity(user);
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("L'utilisateur a été supprimé avec succés");
-            alert.show();
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation");
+            confirmationAlert.setHeaderText("Modification du quiz");
+            confirmationAlert.setContentText("Voulez-vous vraiment modifier ce quiz ?");
+
+            ButtonType ouiButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+            ButtonType nonButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            confirmationAlert.getButtonTypes().setAll(ouiButton, nonButton);
+
+            // Option pour attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.isPresent() && result.get() == ouiButton) {
+                System.out.println("Delete button clicked for user: " + user);
+                tableUsers.getItems().remove(user); // Remove the user from the TableView
+                UserServices userServices = new UserServices();
+                userServices.deleteEntity(user);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("L'utilisateur a été supprimé avec succés");
+                alert.show();
+            }
         }));
+
 
         tableUsers.getColumns().addAll(deleteColumn);
 

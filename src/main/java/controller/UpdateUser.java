@@ -1,5 +1,6 @@
 package controller;
 
+
 import entities.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -14,11 +15,14 @@ import utils.MyConnection;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import controller.Profile;
 
 public class UpdateUser {
+
 
     ObservableList<String> specialites = FXCollections.observableArrayList("Professeur", "Etudiant");
 
@@ -82,14 +86,40 @@ public class UpdateUser {
     @FXML
     void updateUser(ActionEvent event) {
 
-        String name, surname,em,ro,spec,niv,d;
-        name=nomTextField.getText();
-        d=mdpTextField.getText();
-        surname=prenomTextField.getText();
-        em=emailTextField.getText();
-        ro=roleTextField.getValue().toString();
-        spec=specialiteTextField.getText();
-        niv=niveauTextField.getText();
+
+        if(nomTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || prenomTextField.getText().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Veuillez remplir tous les champs");
+            alert.show();
+        }
+        else {
+
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmation");
+            confirmationAlert.setHeaderText("Modification du quiz");
+            confirmationAlert.setContentText("Voulez-vous vraiment modifier ce quiz ?");
+
+            ButtonType ouiButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
+            ButtonType nonButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            confirmationAlert.getButtonTypes().setAll(ouiButton, nonButton);
+
+            // Option pour attendre la réponse de l'utilisateur
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+
+
+
+            if (result.isPresent() && result.get() == ouiButton) {
+            String name, surname,em,ro,spec,niv,d;
+            name=nomTextField.getText();
+            d=mdpTextField.getText();
+            surname=prenomTextField.getText();
+            em=emailTextField.getText();
+            ro=roleTextField.getValue().toString();
+            spec=specialiteTextField.getText();
+            niv=niveauTextField.getText();
 
         if (mdpTextField.getText().equals(confirmTextField.getText())) {
             confirmPasswordLabel.setText("");
@@ -129,7 +159,7 @@ public class UpdateUser {
         } else {
             confirmPasswordLabel.setText("Password does not match!");
         }
-    }
+    }}}
 
     private boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
