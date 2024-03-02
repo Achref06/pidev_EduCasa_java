@@ -87,8 +87,8 @@ public class UserInfo {
             // Handle delete button click
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirmation");
-            confirmationAlert.setHeaderText("Modification du quiz");
-            confirmationAlert.setContentText("Voulez-vous vraiment modifier ce quiz ?");
+            confirmationAlert.setHeaderText("Suppression");
+            confirmationAlert.setContentText("Voulez-vous vraiment supprimer ce user ?");
 
             ButtonType ouiButton = new ButtonType("Oui", ButtonBar.ButtonData.OK_DONE);
             ButtonType nonButton = new ButtonType("Non", ButtonBar.ButtonData.CANCEL_CLOSE);
