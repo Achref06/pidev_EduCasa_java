@@ -1,6 +1,8 @@
 package controller;
 
+import java.io.IOException;
 import java.net.URL;
+import java.security.SecureRandom;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,13 +13,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import services.UserServices;
+
+import javax.mail.MessagingException;
 
 public class AddUser {
 
     ObservableList<String> specialites = FXCollections.observableArrayList("Professeur", "Etudiant");
+
+    String verificationCode = generateVerificationCode();
 
     @FXML
     private ResourceBundle resources;
@@ -72,26 +82,23 @@ public class AddUser {
 
     @FXML
     void AjouterUser(ActionEvent event) {
-
-        if(nomTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || prenomTextField.getText().isEmpty())
-        {
+        if (nomTextField.getText().isEmpty() || emailTextField.getText().isEmpty() || prenomTextField.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Veuillez remplir tous les champs");
             alert.show();
-        }
-        else {
+        } else {
             User user = new User(nomTextField.getText(), prenomTextField.getText(), mdpTextField.getText(),
                     emailTextField.getText(), roleTextField.getValue().toString(), specialiteTextField.getText(),
                     niveauTextField.getText());
 
             if (mdpTextField.getText().equals(confirmTextField.getText())) {
-                confirmPasswordLabel.setText("");
                 if (validateEmail(emailTextField.getText())) {
-                    UserServices userServices = new UserServices();
-                    userServices.addEntity(user);
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("L'utilisateur a été ajouté avec succés");
-                    alert.show();
+                    // Adjusted to generate the verification code here and pass both user and code to the verification interface
+                    String verificationCode = generateVerificationCode();
+                    // Directly call to send email with the generated code
+                    registerUser(emailTextField.getText(), verificationCode);
+                    // Correctly opening the verification interface with user and code
+                    openVerificationInterface(user, verificationCode);
                 } else {
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Adresse email invalide");
@@ -101,10 +108,8 @@ public class AddUser {
                 confirmPasswordLabel.setText("Password does not match!");
             }
         }
-
-
-
     }
+
 
     private boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -170,4 +175,45 @@ public class AddUser {
             show2.setText("Show");
         }
     }
+
+    private String generateVerificationCode() {
+        int length = 6; // Length of the verification code
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+        return sb.toString();
+    }
+
+    public void registerUser(String email, String verificationCode) {
+        EmailService emailService = new EmailService("achrefsaadaoui28@gmail.com", "mwdl ipnd nupm lkjo");
+        try {
+            emailService.sendEmail(email, "Email Verification", "Your verification code is: " + verificationCode);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openVerificationInterface(User user, String verificationCode) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/verif.fxml")); // Make sure the path is correct
+            Parent root = loader.load();
+
+            Verif verifController = loader.getController();
+            verifController.setTemporaryUserData(user);  // Pass the user data
+            verifController.setVerificationCode(verificationCode);  // Pass the verification code
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

@@ -46,6 +46,9 @@ public class login{
     @FXML
     private Hyperlink registerLink;
 
+    @FXML
+    private Hyperlink forgot;
+
     public void initialize() {
         registerLink.setOnAction(event -> createAccountForm());
     }

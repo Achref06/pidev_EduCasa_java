@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -55,6 +57,9 @@ public class UserInfo {
 
     @FXML
     private TableColumn<User, String> roleColumn;
+
+    @FXML
+    private TextField chercherKey;
 
     @FXML
     private TableColumn<User, String> specialiteColumn;
@@ -113,8 +118,37 @@ public class UserInfo {
 
     @FXML
     void initialize() {
-        // Set the cell value factories for each column
         afficher();
+
+        FilteredList<User> filteredData = new FilteredList<>(users, b -> true);
+
+        chercherKey.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(user -> {
+                // If filter text is empty, display all users.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare user name with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                if (user.getNom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches name.
+                } else if (user.getPrenom().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches surname.
+                }
+                return false; // Does not match.
+            });
+        });
+
+        // Wrap the FilteredList in a SortedList.
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+
+        // Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(tableUsers.comparatorProperty());
+
+        // Add sorted (and filtered) data to the table.
+        tableUsers.setItems(sortedData);
     }
 
     public void createAccountForm() {

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,6 +56,8 @@
          <Font name="Century Gothic" size="24.0" />
       </font>
    </Button>
+   <TextField fx:id="chercherKey" layoutX="124.0" layoutY="445.0" />
+   <Label layoutX="56.0" layoutY="449.0" text="Chercher" />
 
 
 </AnchorPane>

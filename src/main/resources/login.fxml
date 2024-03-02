@@ -37,18 +37,19 @@
          </font>
       </Label>
       <TextField fx:id="emailTextField" layoutX="386.0" layoutY="160.0" prefHeight="26.0" prefWidth="182.0" promptText="Email" />
-      <Button fx:id="loginButton" layoutX="379.0" layoutY="273.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="17.0" prefWidth="174.0" style="-fx-background-color: #1E90FF;" text="Login" textFill="#efe9e9">
+      <Button fx:id="loginButton" layoutX="380.0" layoutY="298.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="17.0" prefWidth="174.0" style="-fx-background-color: #1E90FF;" text="Login" textFill="#efe9e9">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="cancelButton" layoutX="379.0" layoutY="331.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="40.0" prefWidth="174.0" style="-fx-background-color: #1E90FF;" text="Cancel" textFill="#efe9e9">
+      <Button fx:id="cancelButton" layoutX="380.0" layoutY="346.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="40.0" prefWidth="174.0" style="-fx-background-color: #1E90FF;" text="Cancel" textFill="#efe9e9">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="loginMessageLabel" layoutX="380.0" layoutY="246.0" prefHeight="18.0" prefWidth="174.0" textFill="#f20909" />
+      <Label fx:id="loginMessageLabel" layoutX="390.0" layoutY="262.0" prefHeight="18.0" prefWidth="174.0" textFill="#f20909" />
       <Hyperlink fx:id="registerLink" layoutX="400.0" layoutY="124.0" text="I don't have an account" />
       <PasswordField fx:id="passwordTextField" layoutX="386.0" layoutY="212.0" prefHeight="26.0" prefWidth="182.0" />
+      <Hyperlink fx:id="forgot" layoutX="425.0" layoutY="238.0" text="Forgot passwrod?" />
    </children>
 </AnchorPane>
