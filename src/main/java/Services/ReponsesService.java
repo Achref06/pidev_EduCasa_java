@@ -17,7 +17,7 @@ public class ReponsesService implements IServices <Reponses> {
 
     private boolean questionExists(int idQuestion) {
         try {
-            String sql = "SELECT id FROM Question WHERE id = ?";
+            String sql = "SELECT id FROM question WHERE id = ?";
             try (PreparedStatement statement = MyConnection.getInstance().getCnx().prepareStatement(sql)) {
                 statement.setInt(1, idQuestion);
                 try (ResultSet resultSet = statement.executeQuery()) {
@@ -49,6 +49,9 @@ public class ReponsesService implements IServices <Reponses> {
         }
 
     }
+
+
+
 
     @Override
     public void updateEntity(Reponses reponses) {

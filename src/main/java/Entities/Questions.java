@@ -9,6 +9,16 @@ public class Questions {
     private String quest;
     private List<Reponses> listeRep;
 
+   /* private String reponseChoisie;
+
+    public String getReponseChoisie() {
+        return reponseChoisie;
+    }
+
+    public void setReponseChoisie(String reponseChoisie) {
+        this.reponseChoisie = reponseChoisie;
+    }*/
+
     public Questions(int id, int idquiz) {
         this.id = id;
         this.idquiz = idquiz;

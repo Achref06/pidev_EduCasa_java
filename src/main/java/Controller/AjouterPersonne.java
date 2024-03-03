@@ -37,28 +37,35 @@ public class AjouterPersonne {
     @FXML
     void ajout(ActionEvent event) {
        try {
+           if (nbQuest.getText().isEmpty() || nom.getText().isEmpty() || note.getText().isEmpty()) {
+               Alert alert = new Alert(Alert.AlertType.ERROR);
+               alert.setTitle("Erreur");
+               alert.setHeaderText(null);
+               alert.setContentText("Veuillez remplir tout les champs");
+               alert.showAndWait();
+
+           } else {
+
            int nbQuestions = Integer.parseInt(nbQuest.getText());
            int noteQuiz = Integer.parseInt(note.getText());
-           if(noteQuiz > nbQuestions){
+           if (noteQuiz > nbQuestions) {
                Alert alert = new Alert(Alert.AlertType.ERROR);
                alert.setContentText("La note ne peut pas être supérieure au nombre de questions.");
                alert.show();
-           }
-           else{
+           } else {
                Quiz quiz = new Quiz(nom.getText(), Integer.valueOf(nbQuest.getText()), Integer.valueOf(note.getText()));
                QuizServices quizServices = new QuizServices();
                quizServices.addEntity(quiz);
                createAccountForm();
            }
 
-
-
-
-       }catch (NumberFormatException e){
-           Alert alert=new Alert(Alert.AlertType.ERROR);
-           alert.setContentText("Veuillez entrer des nombres valides pour le nb de questions et la note");
-           alert.show();
        }
+           }catch(NumberFormatException e){
+               Alert alert = new Alert(Alert.AlertType.ERROR);
+               alert.setContentText("Veuillez entrer des nombres valides pour le nb de questions et la note");
+               alert.show();
+           }
+
     }
     public void createAccountForm() {
         try {

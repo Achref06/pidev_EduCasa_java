@@ -63,7 +63,16 @@ QuestionsServices questionsServices=new QuestionsServices(MyConnection.getInstan
 
 
 
+        Questions q=new Questions(17,"Qcasdmsdsdsdsdnt");
 
+        List<Reponses> listeRep =new ArrayList<>();
+        listeRep.add(new Reponses("Paq",true));
+        listeRep.add(new Reponses("Bavcvaaq",false));
+        listeRep.add(new Reponses("L  oaaq",false));
+        listeRep.add(new Reponses("Mwseaaq",false));
+        q.setListeRep(listeRep);
+        QuestionsServices questionsServices=new QuestionsServices(MyConnection.getInstance().getCnx());
+        questionsServices.addEntity(q);
 
 
 

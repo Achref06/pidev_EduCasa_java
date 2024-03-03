@@ -39,11 +39,7 @@
             <artifactId>controlsfx</artifactId>
             <version>11.0.0</version> <!-- Assurez-vous de vérifier la dernière version disponible -->
         </dependency>
-        <dependency>
-            <groupId>org.controlsfx</groupId>
-            <artifactId>controlsfx</artifactId>
-            <version>8.40.14</version> <!-- Assurez-vous d'utiliser une version compatible avec votre environnement JavaFX -->
-        </dependency>
+
     </dependencies>
     <build>
         <plugins>

@@ -24,6 +24,10 @@ public class Reponses {
         this.statut = statut;
     }
 
+    public Reponses() {
+
+    }
+
     public int getId() {
         return id;
     }
