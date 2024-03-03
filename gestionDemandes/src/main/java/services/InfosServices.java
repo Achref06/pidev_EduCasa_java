@@ -243,21 +243,4 @@ public class InfosServices implements IServices<Infos> {
         }
         return dataProf;
     }
-
-    public static double calculerRating(double qualite, double interaction, double preparation, double evaluations) {
-        final double QUALITE_ENSEIGNEMENT = 0.4;
-        final double INTERACTION_ETUDIANTS = 0.3;
-        final double PREPARATION_COURS = 0.2;
-        final double EVALUATIONS_ETUDIANTS = 0.1;
-        // Calculer la somme pondérée des critères
-        double qualitePonderee = qualite * QUALITE_ENSEIGNEMENT;
-        double interactionPonderee = interaction * INTERACTION_ETUDIANTS;
-        double preparationPonderee = preparation * PREPARATION_COURS;
-        double evaluationsPonderee = evaluations * EVALUATIONS_ETUDIANTS;
-
-        // Calculer le rating global
-        double ratingGlobal = qualitePonderee + interactionPonderee + preparationPonderee + evaluationsPonderee;
-
-        return ratingGlobal;
-    }
 }

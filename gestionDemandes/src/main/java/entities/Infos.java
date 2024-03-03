@@ -145,9 +145,11 @@ public class Infos {
         this.matiere = matiere;
     }
 
+
     public String getDiplome() {
         return diplome;
     }
+
 
     public void setDiplome(String diplome) {
         this.diplome = diplome;

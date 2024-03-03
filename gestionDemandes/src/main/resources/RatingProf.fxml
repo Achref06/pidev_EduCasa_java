@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.RatingProf">
    <children>
       <AnchorPane layoutX="300.0" layoutY="-2.0" prefHeight="400.0" prefWidth="300.0" style="-fx-background-color: #ffffff;">
@@ -25,6 +24,8 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <TextField fx:id="rateProf" layoutX="-74.0" layoutY="361.0" onAction="#rateProf" />
+            <Button layoutX="39.0" layoutY="361.0" mnemonicParsing="false" onAction="#rateProf" text="rate" />
          </children>
       </AnchorPane>
       <Label layoutX="15.0" layoutY="69.0" text="nom" textFill="WHITE" />
