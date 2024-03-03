@@ -23,7 +23,7 @@ public class Home extends Application {
      //  QuestionsServices questionsServices=new QuestionsServices(MyConnection.getInstance().getCnx());
       //  List<Questions> questionsList=questionsServices.getAllData();
       //  System.out.println("Number of questions: "+questionsList.size());
-            FXMLLoader loader=new FXMLLoader(getClass().getResource("/AfficherQuiz.fxml"));
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/AjouterQuestion.fxml"));
         try {
             Parent root=loader.load();
        //     AfficherQuestion controller=loader.getController();

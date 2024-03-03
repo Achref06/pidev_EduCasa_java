@@ -1,5 +1,8 @@
 package Controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,8 +14,17 @@ import Services.AvancementService;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 import javax.sound.midi.Soundbank;
 
@@ -21,10 +33,18 @@ public class AfficherQuestionAdmin {
     @FXML
     private ResourceBundle resources;
 
+
+    @FXML
+    private Button statistiques;
+
     @FXML
     private URL location;
 
+    @FXML
+    private VBox qrbox;
 
+    @FXML
+    private Button qrcode;
 
 
     @FXML
@@ -62,28 +82,36 @@ public class AfficherQuestionAdmin {
     private String selectedAnswer;
 
     private int quizScore;
-   /* @FXML
-    void selectAnswer(ActionEvent event) {
-        RadioButton selectedRadioButton = null;
-        if (radioButton1.isSelected()) {
-            selectedRadioButton = radioButton1;
-        } else if (radioButton2.isSelected()) {
-            selectedRadioButton = radioButton2;
-        } else if (radioButton3.isSelected()) {
-            selectedRadioButton = radioButton3;
-        } else if (radioButton4.isSelected()) {
-            selectedRadioButton = radioButton4;
+
+    @FXML
+    void statistiques(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Statistiques.fxml"));
+            Stage registerStage = new Stage();
+
+            registerStage.setScene(new Scene(root));
+            registerStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        // Mettre à jour le TextField avec la réponse sélectionnée
-        if (selectedRadioButton != null) {
-            String answerText = selectedRadioButton.getText();
-            selectedAnswer = answerText;
+    @FXML
+    void qrcode(ActionEvent event) {
+        // Générer le QR Code avec le résultat du quiz
+        String resultText = "Votre note est : " + quizScore + " points";
+        ByteArrayOutputStream byteArrayOutputStream = QRCode.from(resultText).to(ImageType.PNG).stream();
 
-        }
-    }*/
+        // Convertir le flux d'octets en Image
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(byteArrayOutputStream.toByteArray());
+        Image qrCodeImage = new Image(byteArrayInputStream);
 
+        // Créer une ImageView pour afficher l'image QR Code
+        ImageView imageView = new ImageView(qrCodeImage);
 
+        // Ajouter l'ImageView au VBox qrbox
+        qrbox.getChildren().add(imageView);
+    }
     @FXML
     void selectAnswer(ActionEvent event) {
         RadioButton selectedRadioButton = getSelectedRadioButton();
@@ -118,21 +146,7 @@ public class AfficherQuestionAdmin {
         return false; // La réponse est incorrecte
     }
 
-    /*private void updateQuizScore(boolean isCorrect) {
-        if (isCorrect) {
-            // Si la réponse est correcte, incrémentez la note du quiz
-            AvancementService avancementService = new AvancementService();
-            Avancement avancement = avancementService.getAvancementByStudentAndQuestion(
-                    questionActuelle.getId(), questionActuelle.getIdquiz()
-            );
 
-            if (avancement != null) {
-                avancement.setNoteQuiz(avancement.getNoteQuiz() + 1);
-                avancementService.addEntity(avancement);
-            }
-        }
-        // Sinon, la note reste la même
-    }*/
 
 
     @FXML
@@ -214,7 +228,7 @@ public class AfficherQuestionAdmin {
             afficherQuestionActuelle();
         }
         else {
-            showAlert("Fin des questions. Votre note est: " + quizScore+ " points");
+            showAlert("Fin des questions.");
             System.out.println("Fin des questions.");
 
             // Ajoutez ici la logique pour gérer la fin des questions si nécessaire

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ReponsesService implements IServices <Reponses> {
 
@@ -66,5 +68,33 @@ public class ReponsesService implements IServices <Reponses> {
     @Override
     public ObservableList<Reponses> getAllData() {
         return null;
+    }
+
+    public List<Reponses> getAllReponses() {
+        List<Reponses> reponsesList = new ArrayList<>();
+
+        String requete = "SELECT * FROM reponses";  // Remplacez cela par votre propre requête SQL
+        try {
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                Reponses reponse = new Reponses();
+                // Complétez ici la création de l'objet Reponses à partir des données de la base de données
+                reponse.setId(rs.getInt("id"));
+                reponse.setStatut(rs.getBoolean("statut"));
+                // Ajoutez d'autres attributs selon votre modèle de données
+
+                reponsesList.add(reponse);
+            }
+
+            rs.close();
+            pst.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Gérez les exceptions de base de données selon les besoins
+        }
+
+        return reponsesList;
     }
 }
