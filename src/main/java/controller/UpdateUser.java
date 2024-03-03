@@ -33,6 +33,10 @@ public class UpdateUser {
     private URL location;
 
     @FXML
+    private ProgressBar passwordProgressBar;
+
+
+    @FXML
     private TextField mdpTextField;
 
     @FXML
@@ -94,6 +98,11 @@ public class UpdateUser {
             alert.show();
         }
         else {
+            String password = mdpTextField.getText();
+            if (calculatePasswordStrength(password) < 4) {
+                showAlert("Weak Password", "Password must include at least one symbol, one uppercase character, and one number.");
+                return;
+            }
 
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirmation");
@@ -161,6 +170,31 @@ public class UpdateUser {
         }
     }}}
 
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    private void updatePasswordStrength(String password) {
+        int strength = calculatePasswordStrength(password);
+        passwordProgressBar.setProgress(strength / 4.0); // Assuming 4 is the max score
+        // Adjust the color of the progress bar based on the strength
+        passwordProgressBar.setStyle("-fx-accent: " + (strength < 2 ? "red" : strength < 3 ? "orange" : "green"));
+    }
+
+    private int calculatePasswordStrength(String password) {
+        int strengthPoints = 0;
+        if (password.length() > 8) strengthPoints++;
+        if (password.matches("(?=.*[0-9]).*")) strengthPoints++;
+        if (password.matches("(?=.*[a-z]).*")) strengthPoints++;
+        if (password.matches("(?=.*[A-Z]).*")) strengthPoints++;
+        if (password.matches("(?=.*[!@#$%^&*()\\-_=+{};:,<.>]).*")) strengthPoints++;
+        return Math.min(strengthPoints, 4);
+    }
+
     private boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(regex);
@@ -182,7 +216,14 @@ public class UpdateUser {
         emailTextField.setText(user.getEmail());
         specialiteTextField.setText(user.getSpecialite());
         niveauTextField.setText(user.getNiveau());
+
+
          */
+
+        mdpTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updatePasswordStrength(newValue);
+        });
+
         showPassword1.setVisible(false);
         showPassword2.setVisible(false);
 

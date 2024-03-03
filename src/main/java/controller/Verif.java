@@ -3,12 +3,17 @@ package controller;
 import entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import services.UserServices;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 
 public class Verif {
@@ -21,12 +26,22 @@ public class Verif {
     @FXML
     private Button cancelButton;
 
+    private String storedVerificationCode;
+
     private User temporaryUserData;
 
     private static final String DATA_FOR_RANDOM_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     private static SecureRandom random = new SecureRandom();
 
-    private String generateRandomString(int length) {
+    public static String userEmail; // Class variable to hold the email address
+
+    public static void setUserEmail(String email) {
+        Verif.userEmail = email;
+    }
+
+
+
+    public static String generateRandomString(int length) {
         if (length < 1) throw new IllegalArgumentException();
 
         StringBuilder sb = new StringBuilder(length);
@@ -43,6 +58,10 @@ public class Verif {
         this.expectedVerificationCode = code;
     }
 
+    public void setVerificationCode2(String code){
+        this.storedVerificationCode = code;
+    }
+
     public void setTemporaryUserData(User userData) {
         this.temporaryUserData = userData;
     }
@@ -50,15 +69,32 @@ public class Verif {
     @FXML
     protected void onVerifyButtonClick() {
         String enteredCode = verificationCodeField.getText();
-        if (enteredCode.equals(expectedVerificationCode)) {
 
-            registerUser(temporaryUserData);
-            showAlert("Verification Successful", "Your account has been successfully created!", Alert.AlertType.INFORMATION);
-        } else {
-
-            showAlert("Verification Failed", "The entered code is incorrect. Please try again.", Alert.AlertType.ERROR);
+        // Check if we are in the context of password reset
+        if (temporaryUserData == null && storedVerificationCode != null) {
+            // Password reset context
+            if (enteredCode.equals(storedVerificationCode)) {
+                showAlert("Verification Successful", "The code is correct!", Alert.AlertType.INFORMATION);
+                Newpswd.setUserEmail(Verif.userEmail);
+                openNewPasswordInterface();
+            } else {
+                showAlert("Verification Failed", "The entered code is incorrect.", Alert.AlertType.ERROR);
+            }
+        } else if (temporaryUserData != null) {
+            // Account creation context
+            if (enteredCode.equals(expectedVerificationCode)) {
+                registerUser(temporaryUserData);
+                showAlert("Verification Successful", "Your account has been successfully created!", Alert.AlertType.INFORMATION);
+            } else {
+                showAlert("Verification Failed", "The entered code is incorrect. Please try again.", Alert.AlertType.ERROR);
+            }
         }
     }
+
+
+
+
+
 
 
     private void registerUser(User user) {
@@ -82,5 +118,18 @@ public class Verif {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
 
+    }
+
+
+    private void openNewPasswordInterface() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/newpswd.fxml"));
+            Stage registerStage = new Stage();
+            registerStage.initStyle(StageStyle.UNDECORATED);
+            registerStage.setScene(new Scene(root));
+            registerStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -8,6 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Hyperlink;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import java.io.File;
 import java.io.IOException;
@@ -47,10 +50,41 @@ public class login{
     private Hyperlink registerLink;
 
     @FXML
-    private Hyperlink forgot;
+    private Hyperlink forgotpswd;
+
+
+
 
     public void initialize() {
         registerLink.setOnAction(event -> createAccountForm());
+        forgotpswd.setOnAction(event -> {
+            try {
+                String userEmailAddress = emailTextField.getText();
+                // Assuming generateRandomString is accessible and correctly implemented
+                String verificationCode = Verif.generateRandomString(6);
+
+                // Create an instance of EmailService
+                EmailService emailService = new EmailService("achrefsaadaoui28@gmail.com", "mwdl ipnd nupm lkjo");
+                // Use the instance to send the email
+                emailService.sendEmail(userEmailAddress, "Verification Code", "Your verification code is: " + verificationCode);
+
+                try {
+                    Verif.setUserEmail(emailTextField.getText());
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/verif.fxml")); // Make sure the path is correct
+                    Parent root = loader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                    Verif verifController = loader.getController();
+                    verifController.setVerificationCode2(verificationCode);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //openVerificationInterface();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 
 
@@ -118,6 +152,23 @@ public class login{
             e.printStackTrace();
         }
     }
+
+    public void openVerificationInterface() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Verif.fxml")); // Adjust the path to your FXML file
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+            // Optionally, close the current (login) window
+            // ((Stage)forgot.getScene().getWindow()).close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 }

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
@@ -136,6 +137,11 @@
             <HBox alignment="TOP_CENTER">
                <children>
                   <Label fx:id="showPassword1" text="Label" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ProgressBar fx:id="passwordProgressBar" prefWidth="200.0" progress="0.0" />
                </children>
             </HBox>
             <HBox>
