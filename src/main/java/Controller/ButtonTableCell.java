@@ -1,5 +1,7 @@
 package Controller;
 
+import Entities.Quiz;
+import Interfaces.MyRunnable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -20,10 +22,21 @@ public class ButtonTableCell<S, T> extends TableCell<S, T> {
         });
     }
 
+    public ButtonTableCell(String buttonText, Runnable action) {
+        this.button = new Button(buttonText);
+        this.button.setOnAction(event -> {
+            if (action != null) {
+                action.run();
+            }
+        });
+    }
+
     public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn(String buttonText, Consumer<S> action) {
         return param -> new ButtonTableCell<>(buttonText, action);
     }
 
+    public static <S,T> Callback<TableColumn<S, T>, TableCell<S, T>> forTableColumn1(String buttonText, Consumer<S> action)
+    {return param -> new ButtonTableCell<>(buttonText, action);}
     @Override
     protected void updateItem(T item, boolean empty) {
         super.updateItem(item, empty);

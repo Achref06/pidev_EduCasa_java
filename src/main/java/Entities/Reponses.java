@@ -6,6 +6,20 @@ public class Reponses {
     private String rep;
     private boolean statut;
 
+    private boolean selected;  // Ajout de l'attribut selected
+
+    // Constructeur, getters, setters...
+
+    // Méthode pour vérifier si la réponse est sélectionnée
+    public boolean isSelected() {
+        return selected;
+    }
+
+    // Méthode pour définir si la réponse est sélectionnée
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
+
     public Reponses(String rep, boolean statut) {
         this.rep = rep;
         this.statut = statut;

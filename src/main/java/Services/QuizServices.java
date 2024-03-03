@@ -7,14 +7,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import javax.swing.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class QuizServices implements IServices<Quiz> {
+
+
     @Override
     public void addEntity(Quiz quiz) {
         String requete= "INSERT INTO Quiz (nom,nbQuest,note) VALUES ( ?,?,? )";
@@ -91,5 +90,26 @@ public class QuizServices implements IServices<Quiz> {
 
         return data;
 
+    }
+    public Quiz getQuizById(int quizId) {
+        String requete = "SELECT * FROM quiz WHERE id = ?";
+        try {
+            PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
+            pst.setInt(1, quizId);
+            ResultSet rs = pst.executeQuery();
+
+            if (rs.next()) {
+                Quiz quiz = new Quiz();
+                quiz.setId(rs.getInt("id"));
+                quiz.setNbQuest(rs.getInt("nbQuest"));
+                // Ajoutez d'autres attributs si nécessaire
+
+                return quiz;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null; // Retourne null si le quiz n'est pas trouvé
     }
 }

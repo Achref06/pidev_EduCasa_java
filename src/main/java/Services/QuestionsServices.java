@@ -216,5 +216,18 @@ e.printStackTrace();
 
         return questionsList;
     }
+    public int countQuestionsByQuizId(int quizId) {
+        String requete = "SELECT COUNT(*) FROM question WHERE idquiz = ?";
+        try (PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete)) {
+            pst.setInt(1, quizId);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0; // En cas d'erreur
+    }
 
 }

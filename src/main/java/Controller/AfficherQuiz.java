@@ -2,14 +2,11 @@ package Controller;
 import Entities.Questions;
 import Services.QuestionsServices;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -65,21 +62,41 @@ public class AfficherQuiz implements Initializable {
     @FXML
     private TableView<Quiz> table;
 
+    @FXML
+    private Label moy;
+//private Quiz quiz;
 
     TableColumn<Quiz, Void> deleteColumn = new TableColumn<>("Quiz");
+    TableColumn<Quiz, Void> addColumn = new TableColumn<>("Ajouter question");
+
+
+  /*  private void ajouterQuestionInterface(Object quiz){
+        try{
 
 
 
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/AjouterQuestion.fxml"));
+            Parent root = loader.load();
+            Stage registerStage = new Stage();
+            AjouterQuestion controller = loader.getController();
+            controller.setQuiz(quiz);
+
+            registerStage.setScene(new Scene(root));
+            registerStage.show();
+        }
+        catch (IOException e) {e.printStackTrace();}
+    }
+*/
 
 
     private void showQuestionsInterface(Quiz quiz) {
         try {
 
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherQuestion.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherQuestionAdmin.fxml"));
             Parent root = loader.load();
 
-            AfficherQuestion controller = loader.getController();
+            AfficherQuestionAdmin controller = loader.getController();
 
             QuestionsServices questionsServices = new QuestionsServices(MyConnection.getInstance().getCnx());
             List<Questions> questionsList = questionsServices.getQuestionsByQuizId(quiz.getId());
@@ -118,16 +135,17 @@ public class AfficherQuiz implements Initializable {
         nom.setCellValueFactory(new PropertyValueFactory<>("nom"));
         nbQuest.setCellValueFactory(new PropertyValueFactory<>("nbQuest"));
         note.setCellValueFactory(new PropertyValueFactory<>("note"));
-
-
-
-
-        deleteColumn.setCellFactory(ButtonTableCell.forTableColumn("Questions", user -> {
-showQuestionsInterface(user);
-
+        deleteColumn.setCellFactory(ButtonTableCell.forTableColumn("Questions", user ->
+        {
+            showQuestionsInterface(user);
         }));
+     //   addColumn.setCellValueFactory(ButtonTableCell.forTableColumn1("Ajouter",()->{
+       // ajouterQuestionInterface();
+      //  }));
 
+  //    addColumn.setCellValueFactory(ButtonTableCell.forTableColumn1("Ajouter", (quiz) -> {ajouterQuestionInterface(quiz);}));
         table.getColumns().addAll(deleteColumn);
+     //   table.getColumns().addAll(addColumn);
 
 
 
@@ -213,5 +231,11 @@ showQuestionsInterface(user);
         nomU.setText(clickedquiz.getNom());
         nbQuestU.setText(String.valueOf(clickedquiz.getNbQuest()));
         noteU.setText(String.valueOf(clickedquiz.getNote()));
+
+        int notee =Integer.parseInt(noteU.getText());
+        int nbQuestt=Integer.parseInt(nbQuestU.getText());
+        double moye=(double) notee/nbQuestt;
+        moy.setText("Note par Question: " + moye);
+
     }
 }

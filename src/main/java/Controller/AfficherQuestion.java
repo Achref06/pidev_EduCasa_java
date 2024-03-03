@@ -4,8 +4,10 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import Entities.Avancement;
 import Entities.Questions;
 import Entities.Reponses;
+import Services.AvancementService;
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,9 +82,38 @@ public class AfficherQuestion {
     @FXML
     void confirmer(ActionEvent event) {
         System.out.println("Confirm button clicked...");
+
+        int selectedAnswerIndex = Integer.parseInt(selectedAnswer);
+        Questions questionActuelle = listeQuestions.get(selectedAnswerIndex);
+int questionId=questionActuelle.getId();
+int quizId=questionActuelle.getIdquiz();
+        AvancementService avancementService=new AvancementService();
+        Avancement avancement = avancementService.getAvancementByStudentAndQuestion(questionId, quizId);
+        if (selectedAnswer != null) {
+            for (Reponses reponse : questionActuelle.getListeRep()) {
+                if (reponse.isSelected() && reponse.isStatut()) {
+                    // 4. Si la réponse sélectionnée a un statut true, incrémentez noteQuiz
+                    avancement.setNoteQuiz(avancement.getNoteQuiz() + 1);
+                }
+            }
+        }
+
+        // 5. Mettez à jour l'objet Avancement dans la base de données (adapté à votre implémentation)
+        avancementService.updateEntity(avancement);
+
         questionSuivante();
         System.out.println("User selected: " + selectedAnswer);
     }
+
+
+
+
+
+
+
+
+
+
   /*  private void choisirReponse(String reponseChoisie) {
         Questions questionActuelle = listeQuestions.get(indexQuestionActuelle);
         // Mettez à jour l'objet Questions avec la réponse choisie
@@ -94,58 +125,13 @@ public class AfficherQuestion {
 
         if (listeQuestions != null && !listeQuestions.isEmpty()) {
             // Filter questions based on the quiz ID
-           indexQuestionActuelle=0;
+          indexQuestionActuelle=0;
            afficherQuestionActuelle();
-            // Ajouter des gestionnaires d'événements aux boutons de réponse
-           // rep1.setOnAction(event -> choisirReponse(rep1.getText()));
-         //   rep2.setOnAction(event -> choisirReponse(rep2.getText()));
-           // rep3.setOnAction(event -> choisirReponse(rep3.getText()));
-           // rep4.setOnAction(event -> choisirReponse(rep4.getText()));
+
         }
     }
     private void afficherQuestionActuelle() {
-        /*Questions questionActuelle = listeQuestions.get(indexQuestionActuelle);
-        System.out.println("Afficher la question actuelle");
 
-        quest.setText(questionActuelle.getQuest());
-        quest.setMouseTransparent(true);
-        quest.setEditable(false);
-
-        List<Reponses> reponses = questionActuelle.getListeRep();
-        if (reponses.size() >= 4) {
-            rep1.setText(reponses.get(0).getRep());
-            rep2.setText(reponses.get(1).getRep());
-            rep3.setText(reponses.get(2).getRep());
-            rep4.setText(reponses.get(3).getRep());
-
-            rep1.setMouseTransparent(true);
-            rep1.setEditable(false);
-            rep2.setMouseTransparent(true);
-            rep2.setEditable(false);
-            rep3.setMouseTransparent(true);
-            rep3.setEditable(false);
-            rep4.setMouseTransparent(true);
-            rep4.setEditable(false);
-        } else if (reponses.size() >= 2) {
-            rep1.setText(reponses.get(0).getRep());
-            rep2.setText(reponses.get(1).getRep());
-            rep3.setText("");
-            rep4.setText("");
-            rep1.setMouseTransparent(true);
-            rep1.setEditable(false);
-            rep2.setMouseTransparent(true);
-            rep2.setEditable(false);
-            rep3.setMouseTransparent(true);
-            rep3.setEditable(false);
-            rep4.setMouseTransparent(true);
-            rep4.setEditable(false);
-        }
-
-        // Afficher les réponses associées à la question
-        System.out.println("Afficher les réponses de la question :");
-        for (Reponses reponse : reponses) {
-            System.out.println(reponse.getRep() + " - Statut : " + reponse.isStatut());
-        }*/
         Questions questionActuelle = listeQuestions.get(indexQuestionActuelle);
 
         quest.setText(questionActuelle.getQuest());

@@ -20,14 +20,14 @@ public class Home extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-    //   QuestionsServices questionsServices=new QuestionsServices(MyConnection.getInstance().getCnx());
-   //     List<Questions> questionsList=questionsServices.getAllData();
-   //     System.out.println("Number of questions: "+questionsList.size());
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/AjouterQuestion.fxml"));
+     //  QuestionsServices questionsServices=new QuestionsServices(MyConnection.getInstance().getCnx());
+      //  List<Questions> questionsList=questionsServices.getAllData();
+      //  System.out.println("Number of questions: "+questionsList.size());
+            FXMLLoader loader=new FXMLLoader(getClass().getResource("/AfficherQuiz.fxml"));
         try {
             Parent root=loader.load();
-    //        AfficherQuestion controller=loader.getController();
-   //        controller.setListeQuestions(questionsList);
+       //     AfficherQuestion controller=loader.getController();
+       //   controller.setListeQuestions(questionsList);
             Scene scene= new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();

@@ -58,5 +58,6 @@
       <ChoiceBox fx:id="statut3" layoutX="497.0" layoutY="435.0" prefHeight="30.0" prefWidth="90.0" />
       <ChoiceBox fx:id="statut4" layoutX="497.0" layoutY="486.0" prefHeight="30.0" prefWidth="90.0" />
       <Button fx:id="listeQuiz" layoutX="70.0" layoutY="563.0" mnemonicParsing="false" onAction="#listeQuiz" prefHeight="30.0" prefWidth="98.0" text="Liste des Quizs" />
+      <Label fx:id="questRes" layoutX="271.0" layoutY="551.0" prefHeight="22.0" prefWidth="58.0" text="Label" />
    </children>
 </AnchorPane>

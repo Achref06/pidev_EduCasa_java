@@ -8,8 +8,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import Entities.Questions;
+import Entities.Quiz;
 import Entities.Reponses;
 import Services.QuestionsServices;
+import Services.QuizServices;
 import Utils.MyConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,6 +31,8 @@ public class AjouterQuestion {
 
     @FXML
     private Button confirmer;
+    @FXML
+    private Label questRes;
 
     @FXML
     private TextField idq;
@@ -62,6 +66,8 @@ public class AjouterQuestion {
 
     @FXML
     private Button listeQuiz;
+
+   // private Quiz quiz;
 
 
     @FXML
@@ -107,7 +113,8 @@ public class AjouterQuestion {
 
 
         Optional<ButtonType> result = confirmationAlert.showAndWait();
-        if (result.isPresent() && result.get() == ouiButton){List<Reponses> listeRep = new ArrayList<>();
+        if (result.isPresent() && result.get() == ouiButton){
+            List<Reponses> listeRep = new ArrayList<>();
             listeRep.add(new Reponses(rep1.getText(), statut1.getValue()));
             listeRep.add(new Reponses(rep2.getText(), statut2.getValue()));
             listeRep.add(new Reponses(rep3.getText(), statut3.getValue()));
@@ -115,6 +122,14 @@ public class AjouterQuestion {
 
             nouvelleQuestion.setListeRep(listeRep);
 
+//METIER1
+
+                int quizId=Integer.parseInt(idq.getText());
+                int nbQuestionsAjoutees=questionsServices.countQuestionsByQuizId(quizId);
+                int nbQuestionsRestantes=obtenirNbTotalQuestions()-nbQuestionsAjoutees-1;
+
+
+            showAlert("Questions restantes: "+ nbQuestionsRestantes);
 
             questionsServices.addEntity(nouvelleQuestion);
 
@@ -127,12 +142,14 @@ public class AjouterQuestion {
             statut1.setValue(false);
             statut2.setValue(false);
             statut3.setValue(false);
-            statut4.setValue(false);}
+            statut4.setValue(false);
+        }
 
     }
 
     @FXML
     void initialize() {
+
 
         statut1.getItems().addAll(true, false);
         statut2.getItems().addAll(true, false);
@@ -141,9 +158,29 @@ public class AjouterQuestion {
     }
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erreur");
+        alert.setTitle("Attention");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+    private int obtenirNbTotalQuestions() {
+        int quizId = Integer.parseInt(idq.getText());
+
+        QuizServices quizService = new QuizServices();
+
+        // Remplacez quizId par l'ID du quiz que vous utilisez
+        Quiz quiz = quizService.getQuizById(quizId);
+
+        if (quiz != null) {
+            return quiz.getNbQuest();
+        } else {
+            // Gérer le cas où le quiz n'est pas trouvé
+            return 0;
+        }
+    }
+
+
+
 }
