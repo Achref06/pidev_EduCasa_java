@@ -83,6 +83,11 @@ public class AfficherQuestionAdmin {
 
     private int quizScore;
 
+    private int noteFinal;
+
+
+
+
     @FXML
     void statistiques(ActionEvent event) {
         try {
@@ -99,7 +104,7 @@ public class AfficherQuestionAdmin {
     @FXML
     void qrcode(ActionEvent event) {
         // Générer le QR Code avec le résultat du quiz
-        String resultText = "Votre note est : " + quizScore + " points";
+        String resultText = "Votre note est : " + noteFinal + " points";
         ByteArrayOutputStream byteArrayOutputStream = QRCode.from(resultText).to(ImageType.PNG).stream();
 
         // Convertir le flux d'octets en Image
@@ -139,11 +144,11 @@ public class AfficherQuestionAdmin {
         Questions questionActuelle = listeQuestions.get(indexQuestionActuelle);
 
         for (Reponses reponse : questionActuelle.getListeRep()) {
-            if (reponse.getRep().equals(selectedAnswer) && reponse.isStatut()) {
-                return true; // La réponse est correcte
+            if (reponse.getRep().equals(selectedAnswer) && reponse.isStatut()== true) {
+                return false; // La réponse est correcte
             }
         }
-        return false; // La réponse est incorrecte
+        return true; // La réponse est incorrecte
     }
 
 
@@ -152,15 +157,16 @@ public class AfficherQuestionAdmin {
     @FXML
     void confirmer(ActionEvent event) {
         System.out.println("Confirm button clicked...");
-
         if (getSelectedRadioButton() == null) {
             showAlert("Veuillez choisir une réponse avant de confirmer.");
             return; // Sortir de la méthode si aucun RadioButton n'est sélectionné
         }
-
        boolean isCorrect = checkIfAnswerIsCorrect(selectedAnswer);
-       if(isCorrect){quizScore++;}
-
+       if(isCorrect){quizScore++;
+           System.out.println(quizScore);
+           }
+noteFinal=quizScore;
+        System.out.println("Note final: "+ noteFinal);
         // Réinitialiser les RadioButtons
         ToggleGroup toggleGroup = new ToggleGroup();
         radioButton1.setToggleGroup(toggleGroup);
@@ -171,30 +177,35 @@ public class AfficherQuestionAdmin {
         toggleGroup.selectToggle(null);
         questionSuivante();
         System.out.println("User selected: " + selectedAnswer);
-
-
-
-
     }
 
 
     @FXML
     void initialize() {
+        rep1.setText("");
+        rep2.setText("");
+        rep3.setText("");
+        rep4.setText("");
 
+        rep1.setMouseTransparent(true);
+        rep1.setEditable(false);
+        rep2.setMouseTransparent(true);
+        rep2.setEditable(false);
+        rep3.setMouseTransparent(true);
+        rep3.setEditable(false);
+        rep4.setMouseTransparent(true);
+        rep4.setEditable(false);
+        quizScore=0;
         if (listeQuestions != null && !listeQuestions.isEmpty()) {
-
-            indexQuestionActuelle=0;
-
+            indexQuestionActuelle = 0;
             afficherQuestionActuelle();
-
-
-        }
-
-        else {
+        } else {
             System.out.println("Aucune question à afficher.");
         }
-
     }
+
+
+
     private void afficherQuestionActuelle() {
          questionActuelle = listeQuestions.get(indexQuestionActuelle);
         System.out.println("Afficher la question actuelle");
@@ -228,7 +239,8 @@ public class AfficherQuestionAdmin {
             afficherQuestionActuelle();
         }
         else {
-            showAlert("Fin des questions.");
+            showAlert("Fin des questions. Votre note est: "+ quizScore);
+            System.out.println("questfinv"+quizScore);
             System.out.println("Fin des questions.");
 
             // Ajoutez ici la logique pour gérer la fin des questions si nécessaire

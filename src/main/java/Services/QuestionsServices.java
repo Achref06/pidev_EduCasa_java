@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import java.util.Arrays;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -191,22 +192,45 @@ e.printStackTrace();
 
 
     public List<Questions> getQuestionsByQuizId(int quizId) {
-
         List<Questions> questionsList = new ArrayList<>();
-        String requete = "SELECT question.*, reponse.* FROM question LEFT JOIN reponse ON question.id = reponse.idq WHERE question.idquiz = ?";
+        String requete = "SELECT\n" +
+                "    question.id AS question_id,\n" +
+                "    question.quest AS question_text,\n" +
+                "    GROUP_CONCAT(reponse.rep SEPARATOR ',') AS all_responses,\n" +
+                "    GROUP_CONCAT(reponse.statut SEPARATOR ',') AS all_statuts\n" +
+                "FROM\n" +
+                "    question\n" +
+                "LEFT JOIN\n" +
+                "    reponse ON question.id = reponse.idq\n" +
+                "WHERE\n" +
+                "    question.idquiz = ?\n" +
+                "GROUP BY\n" +
+                "    question.id\n";
+
         try {
             PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete);
             pst.setInt(1, quizId);
             ResultSet rs = pst.executeQuery();
 
-           while (rs.next()){
-                Questions questions1=new Questions();
-                questions1.setId(rs.getInt("id"));
-                questions1.setIdquiz(rs.getInt("idquiz"));
-                questions1.setQuest(rs.getString("quest"));
-                String listeRepAsJson=rs.getString("listeRep");
-                System.out.println("listeRepAsJson: "+ listeRepAsJson);
-                List<Reponses> listeReponses= new Gson().fromJson(listeRepAsJson,new TypeToken<List<Reponses>>(){}.getType());
+            while (rs.next()) {
+                Questions questions1 = new Questions();
+                questions1.setId(rs.getInt("question_id"));
+                questions1.setQuest(rs.getString("question_text"));
+                String concatenatedResponses = rs.getString("all_responses");
+                String concatenatedStatus = rs.getString("all_statuts");
+                System.out.println("Concatenated Responses: " + concatenatedResponses);
+                System.out.println("Concatenated Statuts: " + concatenatedStatus);
+                // Split the concatenated responses into a list
+                List<String> responseList = Arrays.asList(concatenatedResponses.split(","));
+                List<String> statutList = Arrays.asList(concatenatedStatus.split(","));
+                // Create Reponses objects and add them to the Questions object
+                List<Reponses> listeReponses = new ArrayList<>();
+                for (String responseText : responseList) {
+                    Reponses response = new Reponses();
+                    response.setRep(responseText.trim()); // Trim to remove leading/trailing whitespaces
+                    listeReponses.add(response);
+                }
+
                 questions1.setListeRep(listeReponses);
                 questionsList.add(questions1);
             }
@@ -216,6 +240,7 @@ e.printStackTrace();
 
         return questionsList;
     }
+
     public int countQuestionsByQuizId(int quizId) {
         String requete = "SELECT COUNT(*) FROM question WHERE idquiz = ?";
         try (PreparedStatement pst = MyConnection.getInstance().getCnx().prepareStatement(requete)) {
