@@ -65,6 +65,12 @@ public class Infos {
         this.matiere = matiere;
     }
 
+    public Infos(String nom, String prenom, String matiere) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.matiere = matiere;
+    }
+
     public Form getForm() {
         return form;
     }

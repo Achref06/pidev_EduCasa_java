@@ -225,6 +225,47 @@ public class InfosServices implements IServices<Infos> {
         return infos;
     }
 
+    public List<Infos> getDataProf(String searchText) {
+        List<Infos> searchResults = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/pidev", "root", "");
+            String query = "SELECT nom, prenom, matiere FROM donnees WHERE nom LIKE ? OR prenom LIKE ? OR matiere LIKE ?";
+            statement = connection.prepareStatement(query);
+            String searchPattern = "%" + searchText + "%";
+            statement.setString(1, searchPattern);
+            statement.setString(2, searchPattern);
+            statement.setString(3, searchPattern);
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String nom = resultSet.getString("nom");
+                String prenom = resultSet.getString("prenom");
+                String matiere = resultSet.getString("matiere");
+                // Create an Infos object and add it to the search results list
+                Infos infos = new Infos(nom, prenom, matiere);
+                searchResults.add(infos);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // Close the resources
+            try {
+                if (resultSet != null) resultSet.close();
+                if (statement != null) statement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return searchResults;
+    }
+
+
     public List<Infos> getDataProf() {
         List<Infos> dataProf = new ArrayList<>();
         String requete = "SELECT nom , prenom , matiere FROM donnees";

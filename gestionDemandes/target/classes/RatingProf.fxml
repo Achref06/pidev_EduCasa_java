@@ -19,13 +19,15 @@
                   <TableColumn fx:id="matiere" prefWidth="75.0" text="matiere" />
                </columns>
             </TableView>
-            <Label layoutX="50.0" layoutY="40.0" text="liste des professeurs" textAlignment="CENTER">
+            <Label layoutX="49.0" layoutY="27.0" text="liste des professeurs" textAlignment="CENTER">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <TextField fx:id="rateProf" layoutX="-74.0" layoutY="361.0" onAction="#rateProf" />
             <Button layoutX="39.0" layoutY="361.0" mnemonicParsing="false" onAction="#rateProf" text="rate" />
+            <TextField fx:id="searchField" layoutX="64.0" layoutY="58.0" />
+            <Button layoutX="150.0" layoutY="58.0" mnemonicParsing="false" onAction="#searchProf" text="recherche" />
          </children>
       </AnchorPane>
       <Label layoutX="15.0" layoutY="69.0" text="nom" textFill="WHITE" />

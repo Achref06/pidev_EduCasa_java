@@ -147,12 +147,14 @@ public class ShowInfos {
             Infos selectedInfo = showDonnees.getSelectionModel().getSelectedItem();
 
             if (selectedInfo != null) {
-                // Send OCR request for the selected item's URL
+                // Read the image file from the local filesystem
+                File imageFile = new File(selectedInfo.getDiplome());
+
+                // Send OCR request with the image file
                 HttpResponse<String> response = Unirest.post("https://ocr43.p.rapidapi.com/v1/results")
-                        .header("content-type", "application/x-www-form-urlencoded")
                         .header("X-RapidAPI-Key", "f8d5464b90msh67ca564c4447214p1a050ajsn81238dfd0b94")
                         .header("X-RapidAPI-Host", "ocr43.p.rapidapi.com")
-                        .body("url=" + selectedInfo.getDiplome())
+                        .field("image", imageFile)  // Assuming imageFile is the File object representing the image
                         .asString();
 
                 // Handle the response
@@ -161,13 +163,11 @@ public class ShowInfos {
                 System.out.println("Response status: " + status);
                 System.out.println("Response body: " + responseBody);
 
-
                 // Extract diplome text from the response (replace this with the actual parsing logic based on your response format)
                 String diplome = extractDiplomeFromResponse(responseBody);
 
-
                 // Check if "ingenieur" is detected in the diplome
-                if (diplome != null && (diplome.toLowerCase().contains("ingenieur") || diplome.toUpperCase().contains("INGENIEUR")) || diplome.contains("ingénieur") || diplome.contains("Ingénieur")) {
+                if (diplome != null && (diplome.contains("ingenieur") || diplome.contains("INGENIEUR")) || diplome.toUpperCase().contains("ingénieur") || diplome.contains("Ingénieur") || diplome.contains("engineer")) {
                     System.out.println("The word 'ingenieur' is detected in the selected diplome.");
                     // Perform further actions if needed
                 } else {
@@ -181,6 +181,8 @@ public class ShowInfos {
         }
     }
 
+
+
     private String extractDiplomeFromResponse(String responseBody) {
         return responseBody;
     }
@@ -193,13 +195,13 @@ public class ShowInfos {
 
             if (selectedInfo != null) {
                 String recipientEmail = selectedInfo.getEmail(); // Assuming getEmail() retrieves the email address from the selected item
-
+                File imageFile = new File(selectedInfo.getDiplome());
                 // Send the OCR request to check if "ingenieur" is detected
                 HttpResponse<String> response = Unirest.post("https://ocr43.p.rapidapi.com/v1/results")
                         .header("content-type", "application/x-www-form-urlencoded")
                         .header("X-RapidAPI-Key", "f8d5464b90msh67ca564c4447214p1a050ajsn81238dfd0b94")
                         .header("X-RapidAPI-Host", "ocr43.p.rapidapi.com")
-                        .body("url=" + selectedInfo.getDiplome())
+                        .field("image", imageFile)
                         .asString();
 
                 // Handle the OCR response
@@ -209,14 +211,14 @@ public class ShowInfos {
                 System.out.println("OCR Response body: " + responseBody);
 
                 // Check if "ingenieur" is detected in the OCR response
-                boolean ingenieurDetected = responseBody.toLowerCase().contains("ingenieur");
+                boolean ingenieurDetected =((responseBody.contains("ingenieur") || responseBody.contains("INGENIEUR")) || responseBody.toUpperCase().contains("ingénieur") || responseBody.contains("Ingénieur") || responseBody.contains("engineer"));
 
                 // Define the email body message based on the condition
                 String emailBody;
                 if (ingenieurDetected) {
                     emailBody = "Votre formulaire est accepté.";
                 } else {
-                    emailBody = "Votre formulaire est en attente de traitement.";
+                    emailBody = "Votre formulaire est réfusé.";
                 }
 
                 // Send the email with the appropriate body message
@@ -257,26 +259,24 @@ public class ShowInfos {
         motivation.setCellValueFactory(new PropertyValueFactory<>("motivation"));
         matiere.setCellValueFactory(new PropertyValueFactory<>("matiere"));
         diplome.setCellValueFactory(new PropertyValueFactory<>("diplome"));
-        diplome.setCellFactory(column -> {
-            return new TableCell<Infos, String>() {
-                final ImageView imageView = new ImageView();
+        diplome.setCellFactory(column -> new TableCell<Infos, String>() {
+            final ImageView imageView = new ImageView();
 
-                @Override
-                protected void updateItem(String item, boolean empty) {
-                    super.updateItem(item, empty);
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
 
-                    if (item == null || empty) {
-                        setGraphic(null);
-                    } else {
-                        // Load the image and set it to the ImageView
-                        Image image = new Image(new File(item).toURI().toString());
-                        imageView.setImage(image);
-                        imageView.setFitWidth(100); // Set width as needed
-                        imageView.setFitHeight(100); // Set height as needed
-                        setGraphic(imageView);
-                    }
+                if (item == null || empty) {
+                    setGraphic(null);
+                } else {
+                    // Load the image and set it to the ImageView
+                    Image image = new Image(new File(item).toURI().toString());
+                    imageView.setImage(image);
+                    imageView.setFitWidth(100); // Set width as needed
+                    imageView.setFitHeight(100); // Set height as needed
+                    setGraphic(imageView);
                 }
-            };
+            }
         });
     }
 

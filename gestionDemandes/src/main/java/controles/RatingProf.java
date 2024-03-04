@@ -67,6 +67,22 @@ public class RatingProf {
     private TextField rateProf;
 
     @FXML
+    private TextField searchField;
+
+    @FXML
+    void searchProf(ActionEvent event) {
+        String searchProf = searchField.getText().trim();
+
+        // Call the search method from the service class
+        InfosServices infosServices = new InfosServices();
+        List<Infos> searchResults = infosServices.getDataProf(searchProf);
+
+        // Display the search results in the table view
+        ObservableList<Infos> observableList = FXCollections.observableList(searchResults);
+        showDonnees.setItems(observableList);
+    }
+
+    @FXML
     void calculateRating(ActionEvent event) {
         double calculatedRating;
         // Retrieve the values of the text fields

@@ -1,7 +1,5 @@
 package entities;
 
-import javafx.scene.image.ImageView;
-
 import java.time.LocalDate;
 
 public class Form {

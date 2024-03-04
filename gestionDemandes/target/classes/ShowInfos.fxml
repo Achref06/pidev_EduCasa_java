@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="462.0" prefWidth="769.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.ShowInfos">
+<AnchorPane prefHeight="462.0" prefWidth="852.0" style="-fx-background-color: #1E90FF;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controles.ShowInfos">
    <children>
-      <TableView fx:id="showDonnees" layoutX="7.0" layoutY="91.0" prefHeight="200.0" prefWidth="754.0">
+      <TableView fx:id="showDonnees" layoutX="-3.0" layoutY="91.0" prefHeight="200.0" prefWidth="786.0">
          <columns>
             <TableColumn fx:id="idP" editable="false" prefWidth="75.0" text="idP" />
             <TableColumn fx:id="idF" prefWidth="75.0" text="idF" />
@@ -21,7 +21,7 @@
             <TableColumn fx:id="experience" prefWidth="75.0" text="experience" />
             <TableColumn fx:id="motivation" prefWidth="75.0" text="motivation" />
             <TableColumn fx:id="matiere" prefWidth="75.0" text="matiere" />
-            <TableColumn fx:id="diplome" prefWidth="75.0" text="diplome" />
+            <TableColumn fx:id="diplome" prefWidth="106.4000244140625" text="diplome" />
          </columns>
       </TableView>
       <Label layoutX="53.0" layoutY="46.0" text="liste des donnees" textAlignment="CENTER" textFill="WHITE">
