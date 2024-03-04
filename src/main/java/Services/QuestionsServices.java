@@ -218,16 +218,20 @@ e.printStackTrace();
                 questions1.setQuest(rs.getString("question_text"));
                 String concatenatedResponses = rs.getString("all_responses");
                 String concatenatedStatus = rs.getString("all_statuts");
-                System.out.println("Concatenated Responses: " + concatenatedResponses);
-                System.out.println("Concatenated Statuts: " + concatenatedStatus);
-                // Split the concatenated responses into a list
                 List<String> responseList = Arrays.asList(concatenatedResponses.split(","));
                 List<String> statutList = Arrays.asList(concatenatedStatus.split(","));
-                // Create Reponses objects and add them to the Questions object
+
                 List<Reponses> listeReponses = new ArrayList<>();
-                for (String responseText : responseList) {
+                System.out.println(concatenatedResponses);
+                for (int i = 0; i < responseList.size(); i++) {
                     Reponses response = new Reponses();
-                    response.setRep(responseText.trim()); // Trim to remove leading/trailing whitespaces
+                    response.setRep(responseList.get(i).trim()); // Trim to remove leading/trailing whitespaces
+                    if (i < statutList.size()) {
+                        boolean status = Boolean.parseBoolean(statutList.get(i).trim());
+                        response.setStatut(status);
+                    } else {
+                        response.setStatut(false); // Default to false if there's a mismatch in size
+                    }
                     listeReponses.add(response);
                 }
 

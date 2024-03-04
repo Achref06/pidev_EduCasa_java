@@ -24,6 +24,9 @@ import javafx.stage.Stage;
 public class AjouterQuestion {
 
     @FXML
+    private Label nomQuiz;
+
+    @FXML
     private ResourceBundle resources;
 
     @FXML
@@ -67,7 +70,30 @@ public class AjouterQuestion {
     @FXML
     private Button listeQuiz;
 
-   // private Quiz quiz;
+    private void updateNomQuizLabel(String quizId) {
+        try {
+            // Convertir l'ID du quiz en entier
+            int intQuizId = Integer.parseInt(quizId);
+
+            // Obtenez le nom du quiz en fonction de l'ID
+            QuizServices quizService = new QuizServices();
+            Quiz quiz = quizService.getNomQuizById(intQuizId);
+
+            if (quiz != null) {
+                // Mettez à jour le label avec le nom du quiz
+                nomQuiz.setText( "nom quiz: "+quiz.getNom());
+            } else {
+                // Si le quiz n'est pas trouvé, effacez le label
+                nomQuiz.setText("");
+            }
+        } catch (NumberFormatException e) {
+            // Gérer l'exception si l'ID du quiz n'est pas un entier
+            nomQuiz.setText("");
+        }
+    }
+
+
+
 
 
     @FXML
@@ -155,6 +181,11 @@ public class AjouterQuestion {
         statut2.getItems().addAll(true, false);
         statut3.getItems().addAll(true, false);
         statut4.getItems().addAll(true, false);
+
+        idq.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Mettre à jour le label avec le nom du quiz
+            updateNomQuizLabel(newValue);
+        });
     }
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);

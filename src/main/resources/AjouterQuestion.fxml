@@ -16,7 +16,7 @@
             <Image url="@AJOUTERQUESTION.png" />
          </image>
       </ImageView>
-      <TextField fx:id="idq" layoutX="335.0" layoutY="217.0" prefHeight="30.0" prefWidth="157.0" />
+      <TextField fx:id="idq" layoutX="314.0" layoutY="217.0" prefHeight="30.0" prefWidth="157.0" />
       <TextField fx:id="quest" layoutX="335.0" layoutY="270.0" prefHeight="30.0" prefWidth="157.0" />
       <TextField fx:id="rep1" layoutX="335.0" layoutY="326.0" prefHeight="30.0" prefWidth="157.0" />
       <TextField fx:id="rep2" layoutX="335.0" layoutY="380.0" prefHeight="30.0" prefWidth="157.0" />
@@ -58,6 +58,6 @@
       <ChoiceBox fx:id="statut3" layoutX="497.0" layoutY="435.0" prefHeight="30.0" prefWidth="90.0" />
       <ChoiceBox fx:id="statut4" layoutX="497.0" layoutY="486.0" prefHeight="30.0" prefWidth="90.0" />
       <Button fx:id="listeQuiz" layoutX="70.0" layoutY="563.0" mnemonicParsing="false" onAction="#listeQuiz" prefHeight="30.0" prefWidth="98.0" text="Liste des Quizs" />
-      <Label fx:id="questRes" layoutX="271.0" layoutY="551.0" prefHeight="22.0" prefWidth="58.0" text="Label" />
+      <Label fx:id="nomQuiz" layoutX="471.0" layoutY="221.0" prefHeight="22.0" prefWidth="129.0" />
    </children>
 </AnchorPane>

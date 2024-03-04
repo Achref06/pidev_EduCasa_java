@@ -11,7 +11,11 @@ import Entities.Avancement;
 import Entities.Questions;
 import Entities.Reponses;
 import Services.AvancementService;
+import Services.QuestionsServices;
+import Utils.MyConnection;
+import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,26 +89,23 @@ public class AfficherQuestionAdmin {
 
     private int noteFinal;
 
-
-
+    private int tempsRestant;
+    private Timeline timeline;
 
     @FXML
-    void statistiques(ActionEvent event) {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Statistiques.fxml"));
-            Stage registerStage = new Stage();
+    private Label tempsRes;
 
-            registerStage.setScene(new Scene(root));
-            registerStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    @FXML
+    private Button retour;
+
+
+
+
 
     @FXML
     void qrcode(ActionEvent event) {
         // Générer le QR Code avec le résultat du quiz
-        String resultText = "Votre note est : " + noteFinal + " points";
+        String resultText = "Votre note est : " + (noteFinal-2) + " points";
         ByteArrayOutputStream byteArrayOutputStream = QRCode.from(resultText).to(ImageType.PNG).stream();
 
         // Convertir le flux d'octets en Image
@@ -144,7 +145,10 @@ public class AfficherQuestionAdmin {
         Questions questionActuelle = listeQuestions.get(indexQuestionActuelle);
 
         for (Reponses reponse : questionActuelle.getListeRep()) {
+        //    System.out.println(reponse.getRep());
+         //   System.out.println(reponse.isStatut());
             if (reponse.getRep().equals(selectedAnswer) && reponse.isStatut()== true) {
+
                 return false; // La réponse est correcte
             }
         }
@@ -156,16 +160,24 @@ public class AfficherQuestionAdmin {
 
     @FXML
     void confirmer(ActionEvent event) {
+        // Réinitialiser le temps restant à 60 secondes
+        tempsRestant = 60;
+        // Arrêter la timeline précédente s'il y en a une
+        if (timeline != null) {
+            timeline.stop();
+        }
+        // Redémarrer la timeline
+        timeline.play();
         System.out.println("Confirm button clicked...");
         if (getSelectedRadioButton() == null) {
             showAlert("Veuillez choisir une réponse avant de confirmer.");
             return; // Sortir de la méthode si aucun RadioButton n'est sélectionné
         }
        boolean isCorrect = checkIfAnswerIsCorrect(selectedAnswer);
-       if(isCorrect){quizScore++;
-           System.out.println(quizScore);
+       if(isCorrect){
+           quizScore++;
            }
-noteFinal=quizScore;
+        noteFinal=quizScore;
         System.out.println("Note final: "+ noteFinal);
         // Réinitialiser les RadioButtons
         ToggleGroup toggleGroup = new ToggleGroup();
@@ -173,15 +185,28 @@ noteFinal=quizScore;
         radioButton2.setToggleGroup(toggleGroup);
         radioButton3.setToggleGroup(toggleGroup);
         radioButton4.setToggleGroup(toggleGroup);
-
         toggleGroup.selectToggle(null);
         questionSuivante();
         System.out.println("User selected: " + selectedAnswer);
     }
 
+    @FXML
+    void retour(ActionEvent event) {
+        // Réinitialiser les RadioButtons
+        ToggleGroup toggleGroup = new ToggleGroup();
+        radioButton1.setToggleGroup(toggleGroup);
+        radioButton2.setToggleGroup(toggleGroup);
+        radioButton3.setToggleGroup(toggleGroup);
+        radioButton4.setToggleGroup(toggleGroup);
+        toggleGroup.selectToggle(null);
+        questionPrecedente();
+    }
+
 
     @FXML
     void initialize() {
+        quest.setMouseTransparent(true);
+        quest.setEditable(false);
         rep1.setText("");
         rep2.setText("");
         rep3.setText("");
@@ -196,17 +221,48 @@ noteFinal=quizScore;
         rep4.setMouseTransparent(true);
         rep4.setEditable(false);
         quizScore=0;
+
         if (listeQuestions != null && !listeQuestions.isEmpty()) {
             indexQuestionActuelle = 0;
-            afficherQuestionActuelle();
+
         } else {
             System.out.println("Aucune question à afficher.");
         }
+
+
+
+        tempsRestant = 60; // par exemple, 60 secondes
+
+        // Configurer la timeline pour mettre à jour le temps restant chaque seconde
+        timeline = new Timeline(
+                new KeyFrame(Duration.seconds(1), event -> {
+                    tempsRestant--;
+                    // Mettre à jour l'interface utilisateur avec le temps restant
+                    // Par exemple, mettre à jour un Label
+                    tempsRes.setText("Temps restant : " + tempsRestant + "s");
+
+                    if (tempsRestant == 0) {
+
+                        // Si le temps est écoulé, passer à la question suivante
+                        questionSuivante();
+
+                        tempsRestant = 60;
+                    }
+                })
+        );
+
+        // Configurer la timeline pour qu'elle se répète indéfiniment
+        timeline.setCycleCount(Timeline.INDEFINITE);
+
+        // Démarrer la timeline lorsque la question est affichée
+        timeline.play();
     }
 
 
 
     private void afficherQuestionActuelle() {
+
+
          questionActuelle = listeQuestions.get(indexQuestionActuelle);
         System.out.println("Afficher la question actuelle");
 
@@ -226,6 +282,7 @@ noteFinal=quizScore;
                 radioButtons[i].setDisable(true);  // Désactiver le RadioButton s'il n'y a pas de réponse
             }
         }
+
     }
 
 
@@ -233,14 +290,17 @@ noteFinal=quizScore;
 
     // Méthode pour passer à la question suivante
     public void questionSuivante() {
+       // timeline.stop();
         if (indexQuestionActuelle < listeQuestions.size() - 1) {
             indexQuestionActuelle++;
             System.out.println("Displaying next question...");
             afficherQuestionActuelle();
         }
         else {
-            showAlert("Fin des questions. Votre note est: "+ quizScore);
-            System.out.println("questfinv"+quizScore);
+            showAlert("Fin des questions.");
+            tempsRestant=0;
+            timeline.stop();
+
             System.out.println("Fin des questions.");
 
             // Ajoutez ici la logique pour gérer la fin des questions si nécessaire

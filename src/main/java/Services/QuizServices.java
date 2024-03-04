@@ -112,4 +112,28 @@ public class QuizServices implements IServices<Quiz> {
 
         return null; // Retourne null si le quiz n'est pas trouvé
     }
+
+    public Quiz getNomQuizById(int quizId) {
+
+        Quiz quiz = null;
+        String query = "SELECT id, nom, nbQuest FROM quiz WHERE id = ?";
+
+        try (PreparedStatement preparedStatement = MyConnection.getInstance().getCnx().prepareStatement(query)) {
+            preparedStatement.setInt(1, quizId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String nom = resultSet.getString("nom");
+                    int nbQuest = resultSet.getInt("nbQuest");
+
+                    quiz = new Quiz(id, nom, nbQuest);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Gérez l'exception correctement
+        }
+
+        return quiz;
+    }
 }

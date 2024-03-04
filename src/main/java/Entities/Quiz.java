@@ -19,6 +19,12 @@ public class Quiz {
     }
     public Quiz(){}
 
+    public Quiz(int id, String nom, int nbQuest) {
+        this.id=id;
+        this.nom=nom;
+        this.nbQuest=nbQuest;
+    }
+
     public int getId() {
         return id;
     }
